@@ -2,8 +2,8 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import { ThemeToggle } from '@/components/theme-toggle'
 import appCss from '../styles.css?url'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 export const Route = createRootRoute({
   head: () => ({
