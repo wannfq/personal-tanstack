@@ -73,6 +73,7 @@ Use your preferred package runner (`bun run`, `pnpm`, `npm run`):
 - Tailwind CSS utilities are available globally. Extend the design system via `src/styles.css` or by adding tokens in Tailwind's config if needed.
 - shadcn/ui components live in `src/components/ui`. Run `bunx shadcn add <component>` to import additional primitives defined in `components.json`.
 - TanStack Devtools are enabled by default in the root shell (`src/routes/__root.tsx`) and render in the browser for faster debugging.
+- A floating theme toggle (`ThemeToggle`) sits in the top-right corner. It remembers the last choice in `localStorage` and toggles Tailwind's `dark` class on `<html>`.
 
 ## Deploying
 
