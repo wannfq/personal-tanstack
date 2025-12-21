@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { MoonIcon, SunIcon } from 'lucide-react'
+import { IconMoon, IconSun } from '@tabler/icons-react'
 import { Button } from '@/components/ui/button'
 
 const STORAGE_KEY = 'theme'
@@ -52,9 +52,9 @@ export function ThemeToggle() {
 
   const icon =
     theme === 'dark' ? (
-      <SunIcon className="size-6" aria-hidden="true" />
+      <IconSun className="size-6" aria-hidden="true" />
     ) : (
-      <MoonIcon className="size-6" aria-hidden="true" />
+      <IconMoon className="size-6" aria-hidden="true" />
     )
 
   return (

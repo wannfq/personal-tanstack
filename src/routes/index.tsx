@@ -1,15 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {
-  ArrowRightIcon,
-  AtSignIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-  MapPinIcon,
-  PaletteIcon,
-  RocketIcon,
-  SparklesIcon,
-} from 'lucide-react'
+  IconArrowRight,
+  IconAt,
+  IconBrandGithub,
+  IconBrandLinkedin,
+  IconMail,
+  IconMapPin,
+  IconPalette,
+  IconRocket,
+  IconSparkles,
+} from '@tabler/icons-react'
 
 import { Badge } from '@/components/ui/badge'
 import {
@@ -95,17 +95,17 @@ const experiences = [
 const contactLinks = [
   {
     label: 'Email',
-    icon: MailIcon,
+    icon: IconMail,
     href: 'mailto:wannfq@gmail.com',
   },
   {
     label: 'LinkedIn',
-    icon: LinkedinIcon,
+    icon: IconBrandLinkedin,
     href: 'https://www.linkedin.com/in/wannfq',
   },
   {
     label: 'GitHub',
-    icon: GithubIcon,
+    icon: IconBrandGithub,
     href: 'https://github.com/wannfq',
   },
 ]
@@ -152,7 +152,7 @@ function HeroSection() {
             </p>
 
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
-              <MapPinIcon className="size-4" aria-hidden="true" />
+              <IconMapPin className="size-4" aria-hidden="true" />
               Kuala Lumpur, Malaysia • Hybrid / Remote
             </span>
           </div>
@@ -176,7 +176,7 @@ function HeroSection() {
             className={cn(buttonVariants({ size: 'lg' }), 'gap-2')}
           >
             View Experience
-            <ArrowRightIcon className="size-4" aria-hidden="true" />
+            <IconArrowRight className="size-4" aria-hidden="true" />
           </a>
           <a
             href="#contact"
@@ -186,7 +186,7 @@ function HeroSection() {
             )}
           >
             Contact Me
-            <AtSignIcon className="size-4" aria-hidden="true" />
+            <IconAt className="size-4" aria-hidden="true" />
           </a>
         </div>
       </div>
@@ -196,7 +196,7 @@ function HeroSection() {
           <div className="absolute inset-3 rounded-[2rem] border border-border/50 bg-background/80 backdrop-blur" />
           <div className="relative flex size-full flex-col items-center justify-center gap-4 rounded-[2rem] border border-border/40 bg-background/90 p-10 text-center shadow-inner">
             <div className="flex size-24 items-center justify-center rounded-full border border-primary/40 bg-primary/10 text-primary">
-              <RocketIcon className="size-12" aria-hidden="true" />
+              <IconRocket className="size-12" aria-hidden="true" />
             </div>
             <p className="text-sm uppercase tracking-[0.6em] text-muted-foreground/80">
               Platform Engineering
@@ -214,19 +214,20 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section
-      id="about"
-      className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start"
-    >
-      <div className="space-y-6">
+    <section id="about" className="space-y-8">
+      <header className="space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <PaletteIcon className="size-4" aria-hidden="true" />
+          <IconPalette className="size-4" aria-hidden="true" />
           About
         </div>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl gap-4">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Crafting systems with intention
         </h2>
-        <p className="text-muted-foreground">
+      </header>
+
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
+        <div className="space-y-6">
+          <p className="text-muted-foreground">
           I build software with a craftsman mindset, pairing architectural rigor
           with an eagerness to explore new technology. My happy place is where
           resilient backend services, thoughtful frontends and reliable
@@ -249,7 +250,7 @@ function AboutSection() {
       <Card className="border-dashed">
         <CardHeader className="space-y-2">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-            <SparklesIcon
+            <IconSparkles
               className="size-5 text-primary"
               aria-hidden="true"
             />
@@ -303,6 +304,7 @@ function AboutSection() {
           </ul>
         </CardContent>
       </Card>
+      </div>
     </section>
   )
 }
@@ -312,7 +314,7 @@ function ExperienceSection() {
     <section id="experience" className="space-y-6">
       <header className="space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <RocketIcon className="size-4" aria-hidden="true" />
+          <IconRocket className="size-4" aria-hidden="true" />
           Experience
         </div>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl gap-4">
@@ -387,7 +389,7 @@ function ContactSection() {
     <section id="contact" className="space-y-6">
       <header className="space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <AtSignIcon className="size-4" aria-hidden="true" />
+          <IconAt className="size-4" aria-hidden="true" />
           Contact
         </div>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">

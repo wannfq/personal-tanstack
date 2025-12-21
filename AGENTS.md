@@ -11,7 +11,7 @@
 9. Use `@/` aliases for imports; avoid deep relative paths when an alias exists.
 10. React components must be functional; keep hooks flat at top level.
 11. Styling via Tailwind CSS 4 + shadcn/ui; reuse component variants, avoid inline overrides.
-12. UI icons come from `lucide-react`; watch for deprecated glyph names during upgrades.
+12. UI icons come from `@tabler/icons-react`; icons use `IconName` prefix convention (e.g., `IconArrowRight`, `IconBrandGithub`).
 13. Maintain accessibility with descriptive aria labels and semantic markup.
 14. Naming: PascalCase components, camelCase utilities/hooks, kebab-case files.
 15. Prefer explicit types/interfaces; lean on TanStack utility types; avoid `any`.
