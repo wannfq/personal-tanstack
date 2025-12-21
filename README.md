@@ -1,4 +1,4 @@
-# TanStack Start + shadcn/ui Starter
+# Personal TanStack
 
 A TanStack Start + React project prepared as the foundation for a personal blog or resume site. It ships with shadcn/ui components, Tailwind CSS utilities, and tooling from the TanStack ecosystem to give you a modern, type-safe developer experience out of the box.
 
