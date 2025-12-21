@@ -192,22 +192,14 @@ function HeroSection() {
       </div>
 
       <div className="relative flex items-center justify-center">
-        <div className="relative flex size-[260px] items-center justify-center rounded-[2.5rem] border border-border/60 bg-gradient-to-b from-primary/20 via-primary/5 to-transparent p-6 shadow-xl sm:size-[320px] md:size-[360px] lg:size-[420px]">
-          <div className="absolute inset-3 rounded-[2rem] border border-border/50 bg-background/80 backdrop-blur" />
-          <div className="relative flex size-full flex-col items-center justify-center gap-4 rounded-[2rem] border border-border/40 bg-background/90 p-10 text-center shadow-inner">
-            <div className="flex size-24 items-center justify-center rounded-full border border-primary/40 bg-primary/10 text-primary">
-              <IconRocket className="size-12" aria-hidden="true" />
-            </div>
-            <p className="text-sm uppercase tracking-[0.6em] text-muted-foreground/80">
-              Platform Engineering
-            </p>
-            <p className="text-lg font-medium text-muted-foreground">
-              Designing unified hiring experiences and developer tooling that
-              scale with every marketplace.
-            </p>
+          <div className="relative flex size-full items-center justify-center overflow-hidden border border-border/40 bg-background/90 shadow-inner">
+            <img
+              src="/profile-picture-afiq.jpg"
+              alt="Wan Afiq"
+              className="size-full object-cover"
+            />
           </div>
         </div>
-      </div>
     </section>
   )
 }
