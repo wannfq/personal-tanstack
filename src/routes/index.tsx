@@ -146,8 +146,8 @@ function HeroSection() {
 
             <p className="py-4 text-base text-muted-foreground sm:text-lg">
               Software craftsman and architecture connoisseur building resilient
-              systems that solve real business problems.
-              Language- and technology-agnostic, I love unifying systems and empowering teams
+              systems that solve real business problems. Language- and
+              technology-agnostic, I love unifying systems and empowering teams
               with dependable tooling.
             </p>
 
@@ -192,14 +192,14 @@ function HeroSection() {
       </div>
 
       <div className="relative flex items-center justify-center">
-          <div className="relative flex size-full items-center justify-center overflow-hidden border border-border/40 bg-background/90 shadow-inner">
-            <img
-              src="/profile-picture-afiq.jpg"
-              alt="Wan Afiq"
-              className="size-full object-cover"
-            />
-          </div>
+        <div className="relative flex size-full items-center justify-center overflow-hidden border border-border/40 bg-background/90 shadow-inner">
+          <img
+            src="/profile-picture-afiq.jpg"
+            alt="Wan Afiq"
+            className="size-full object-cover"
+          />
         </div>
+      </div>
     </section>
   )
 }
@@ -220,82 +220,84 @@ function AboutSection() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
         <div className="space-y-6">
           <p className="text-muted-foreground">
-          I build software with a craftsman mindset, pairing architectural rigor
-          with an eagerness to explore new technology. My happy place is where
-          resilient backend services, thoughtful frontends and reliable
-          pipelines meet to create impactful hiring experiences.
-        </p>
-        <p className="text-muted-foreground">
-          From GitOps workflows and Kubernetes automation to cloud-native
-          governance in AWS, I look for pragmatic solutions that help teams ship
-          faster without compromising quality or trust. I thrive in
-          collaborative environments where mentorship and shared ownership are
-          core values.
-        </p>
-        <p className="text-muted-foreground">
-          I hold the ICAgile Certified Professional credential and earned a
-          Bachelor&apos;s degree in Naval Architecture and Marine Engineering
-          from Saint Petersburg State Marine Technical University.
-        </p>
-      </div>
-
-      <Card className="border-dashed">
-        <CardHeader className="space-y-2">
-          <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-            <IconSparkles
-              className="size-5 text-primary"
-              aria-hidden="true"
-            />
-            Interests
-          </CardTitle>
-          <CardDescription>
-            Passionate about technology and always exploring what&apos;s next.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4 text-sm text-muted-foreground">
-          <p>
-            I have a deep passion for technology and love exploring new tools
-            and frameworks. Recently, I&apos;ve been tinkering with AI tooling,
-            setting up micro Kubernetes clusters, and diving into interesting
-            frameworks like TanStack.
+            I build software with a craftsman mindset, pairing architectural
+            rigor with an eagerness to explore new technology. My happy place is
+            where resilient backend services, thoughtful frontends and reliable
+            pipelines meet to create impactful hiring experiences.
           </p>
-          <ul className="grid gap-2">
-            <li className="flex items-start gap-2">
-              <span
-                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
+          <p className="text-muted-foreground">
+            From GitOps workflows and Kubernetes automation to cloud-native
+            governance in AWS, I look for pragmatic solutions that help teams
+            ship faster without compromising quality or trust. I thrive in
+            collaborative environments where mentorship and shared ownership are
+            core values.
+          </p>
+          <p className="text-muted-foreground">
+            I hold the ICAgile Certified Professional credential and earned a
+            Bachelor&apos;s degree in Naval Architecture and Marine Engineering
+            from Saint Petersburg State Marine Technical University.
+          </p>
+        </div>
+
+        <Card className="border-dashed">
+          <CardHeader className="space-y-2">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+              <IconSparkles
+                className="size-5 text-primary"
                 aria-hidden="true"
               />
-              <span>
-                Experimenting with Linux distros and customizing my development
-                environment. Check out my{' '}
-                <a
-                  href="https://github.com/wannfq/dotfiles"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
-                >
-                  dotfiles
-                </a>
-                !
-              </span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span
-                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                aria-hidden="true"
-              />
-              <span>Building custom mechanical keyboards as a hands-on hobby.</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span
-                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                aria-hidden="true"
-              />
-              <span>Unwinding with movies, music, gaming, and anime.</span>
-            </li>
-          </ul>
-        </CardContent>
-      </Card>
+              Interests
+            </CardTitle>
+            <CardDescription>
+              Passionate about technology and always exploring what&apos;s next.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm text-muted-foreground">
+            <p>
+              I have a deep passion for technology and love exploring new tools
+              and frameworks. Recently, I&apos;ve been tinkering with AI
+              tooling, setting up micro Kubernetes clusters, and diving into
+              interesting frameworks like TanStack.
+            </p>
+            <ul className="grid gap-2">
+              <li className="flex items-start gap-2">
+                <span
+                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
+                  aria-hidden="true"
+                />
+                <span>
+                  Experimenting with Linux distros and customizing my
+                  development environment. Check out my{' '}
+                  <a
+                    href="https://github.com/wannfq/dotfiles"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+                  >
+                    dotfiles
+                  </a>
+                  !
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span
+                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
+                  aria-hidden="true"
+                />
+                <span>
+                  Building custom mechanical keyboards as a hands-on hobby.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span
+                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
+                  aria-hidden="true"
+                />
+                <span>Unwinding with movies, music, gaming, and anime.</span>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )
