@@ -1,6 +1,35 @@
 import * as React from "react"
 
-import { IconBell, IconBluetooth, IconCreditCard, IconDownload, IconEye, IconFileCode, IconFile, IconFileText, IconFolder, IconFolderOpen, IconFolderSearch, IconHelpCircle, IconKeyboard, IconLanguage, IconLayout, IconLogout, IconMail, IconDeviceDesktop, IconMoon, IconDotsHorizontal, IconDotsVertical, IconPalette, IconPlus, IconDeviceFloppy, IconSettings, IconShield, IconSun, IconUser } from "@tabler/icons-react"
+import {
+  IconArrowsHorizontal,
+  IconBell,
+  IconBluetooth,
+  IconCreditCard,
+  IconDeviceDesktop,
+  IconDeviceFloppy,
+  IconDotsVertical,
+  IconDownload,
+  IconEye,
+  IconFile,
+  IconFileCode,
+  IconFileText,
+  IconFolder,
+  IconFolderOpen,
+  IconFolderSearch,
+  IconHelpCircle,
+  IconKeyboard,
+  IconLanguage,
+  IconLayout,
+  IconLogout,
+  IconMail,
+  IconMoon,
+  IconPalette,
+  IconPlus,
+  IconSettings,
+  IconShield,
+  IconSun,
+  IconUser
+} from "@tabler/icons-react"
 import {
   Example,
   ExampleWrapper,
@@ -201,7 +230,7 @@ function FormExample() {
                           </DropdownMenuItem>
                           <DropdownMenuSub>
                             <DropdownMenuSubTrigger>
-                              <IconDotsHorizontal
+                              <IconArrowsHorizontal
                               />
                               More Projects
                             </DropdownMenuSubTrigger>
