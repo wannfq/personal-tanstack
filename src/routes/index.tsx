@@ -2,13 +2,13 @@ import { createFileRoute } from '@tanstack/react-router'
 import {
   ArrowRightIcon,
   AtSignIcon,
-  BriefcaseBusinessIcon,
-  Github,
-  Linkedin,
+  GithubIcon,
+  LinkedinIcon,
   MailIcon,
   MapPinIcon,
   PaletteIcon,
   RocketIcon,
+  SparklesIcon,
 } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
@@ -16,7 +16,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -29,32 +28,67 @@ export const Route = createFileRoute('/')({
 })
 
 const skills = [
-  'Primary Skill',
-  'Secondary Expertise',
-  'Favorite Framework',
-  'UI Specialty',
-  'Key Strength',
-  'Passion Project',
+  'TypeScript',
+  'Go',
+  'GitOps',
+  'AWS Architecture',
+  'Kubernetes',
+  'Platform Engineering',
+  'Observability',
 ]
 
-const projects = [
+const experiences = [
   {
-    title: 'Project Codename One',
-    description:
-      'Placeholder description that mirrors the original length, spotlighting the problems solved and the measurable outcomes delivered.',
-    highlights: ['Placeholder Tech', 'Process Upgrade', 'Key Result'],
+    company: 'SEEK',
+    role: 'Senior Software Engineer',
+    period: 'Sep 2021 – Present',
+    location: 'Kuala Lumpur, Malaysia',
+    summary:
+      'Leading the migration to a unified third-party job posting service spanning JobStreet and SEEK while enabling dependable developer tooling.',
+    highlights: [
+      'Planned, developed and migrated the unified third-party job posting platform that serves JobStreet and SEEK marketplaces.',
+      'Maintains and improves AWS account management tooling adopted across SEEK to keep teams compliant and productive.',
+      'Facilitates SEEK’s graduate program and contributes to the organisation’s new ownership solution.',
+    ],
   },
   {
-    title: 'Project Codename Two',
-    description:
-      'Use this slot to mention an initiative, the users it served, and the strategic impact you achieved for the business.',
-    highlights: ['UI Overhaul', 'Workflow Refresh', 'Team Enablement'],
+    company: 'SEEK',
+    role: 'Software Engineer',
+    period: 'Oct 2020 – Sep 2021',
+    location: 'Kuala Lumpur, Malaysia',
+    summary:
+      'Maintained the architecture for the third-party job posting service and delivered a modernised version with improved engineering practices.',
+    highlights: [
+      'Rebuilt the third-party job posting service with a modern stack and resilient patterns.',
+      'Partnered with cross-functional teams to uphold service reliability during migration phases.',
+      'Documented architecture decisions to accelerate onboarding and knowledge transfer.',
+    ],
   },
   {
-    title: 'Project Codename Three',
-    description:
-      'Another space for a flagship effort, ideally matching the tone and length of the original while remaining fully customizable.',
-    highlights: ['Scaling Story', 'Automation Win', 'Quality Focus'],
+    company: 'TribeHired',
+    role: 'Software Engineer',
+    period: 'Nov 2018 – Sep 2020',
+    location: 'Kuala Lumpur, Malaysia',
+    summary:
+      'Collaborated with architecture and product to evolve the hiring platform while steering the organisation toward modern engineering workflows.',
+    highlights: [
+      'Designed, developed and deployed backend services alongside front-end applications serving recruitment workflows.',
+      'Refactored legacy code bases using sound programming principles and design patterns.',
+      'Migrated monolith components into a microservices architecture and established quality, test and deployment pipelines.',
+    ],
+  },
+  {
+    company: 'Rocket Integration Technology',
+    role: 'Full Stack Developer',
+    period: 'Apr 2017 – Nov 2018',
+    location: 'Selangor, Malaysia',
+    summary:
+      'Built and maintained bespoke digital products for clients spanning talent platforms, fintech and enterprise operations.',
+    highlights: [
+      'Delivered end-to-end web applications for talent search, cryptocurrency wallet, cloud mining and exchange use cases.',
+      'Implemented management systems for forex brokerage and ERP operations tailored to client workflows.',
+      'Provided ongoing enhancements to ensure scalability and maintainability across custom solutions.',
+    ],
   },
 ]
 
@@ -62,17 +96,17 @@ const contactLinks = [
   {
     label: 'Email',
     icon: MailIcon,
-    href: 'mailto:you@example.com',
+    href: 'mailto:wannfq@gmail.com',
   },
   {
     label: 'LinkedIn',
-    icon: Linkedin,
-    href: 'https://www.linkedin.com/in/your-handle',
+    icon: LinkedinIcon,
+    href: 'https://www.linkedin.com/in/wannfq',
   },
   {
     label: 'GitHub',
-    icon: Github,
-    href: 'https://github.com/your-handle',
+    icon: GithubIcon,
+    href: 'https://github.com/wannfq',
   },
 ]
 
@@ -83,7 +117,7 @@ function HomePage() {
         <HeroSection />
         <Separator className="bg-border/60" />
         <AboutSection />
-        <ProjectsSection />
+        <ExperienceSection />
         <ContactSection />
       </main>
     </div>
@@ -97,7 +131,7 @@ function HeroSection() {
         <div className="flex flex-col gap-4">
           <div className="space-y-4">
             <p className="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-              👋 Hi, I&apos;m <span className="text-primary">Your Name</span>
+              👋 Hi, I&apos;m <span className="text-primary">Wan Afiq</span>
             </p>
 
             <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
@@ -106,20 +140,20 @@ function HeroSection() {
                 aria-hidden="true"
               />
               <span className="hidden text-xs uppercase tracking-[0.3em] text-muted-foreground/80 lg:inline">
-                Role Placeholder
+                Software Engineer
               </span>
             </div>
 
-            <p className="text-base text-muted-foreground sm:text-lg py-4">
-              Use this paragraph to summarize your engineering focus, signature
-              strengths, and the kinds of products you love to build. Keep the
-              copy concise while signaling the impact you create for teams and
-              customers.
+            <p className="py-4 text-base text-muted-foreground sm:text-lg">
+              Software craftsman and architecture connoisseur building resilient
+              systems that solve real business problems.
+              Language- and technology-agnostic, I love unifying systems and empowering teams
+              with dependable tooling.
             </p>
 
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
               <MapPinIcon className="size-4" aria-hidden="true" />
-              Based in Your Location • Availability Placeholder
+              Kuala Lumpur, Malaysia • Hybrid / Remote
             </span>
           </div>
         </div>
@@ -138,10 +172,10 @@ function HeroSection() {
 
         <div className="flex flex-wrap items-center gap-4">
           <a
-            href="#projects"
+            href="#experience"
             className={cn(buttonVariants({ size: 'lg' }), 'gap-2')}
           >
-            View Projects
+            View Experience
             <ArrowRightIcon className="size-4" aria-hidden="true" />
           </a>
           <a
@@ -165,11 +199,11 @@ function HeroSection() {
               <RocketIcon className="size-12" aria-hidden="true" />
             </div>
             <p className="text-sm uppercase tracking-[0.6em] text-muted-foreground/80">
-              Title Placeholder
+              Platform Engineering
             </p>
             <p className="text-lg font-medium text-muted-foreground">
-              Replace this sentence with a quick promise about the type of
-              experience or transformation you deliver to clients and teams.
+              Designing unified hiring experiences and developer tooling that
+              scale with every marketplace.
             </p>
           </div>
         </div>
@@ -189,121 +223,160 @@ function AboutSection() {
           <PaletteIcon className="size-4" aria-hidden="true" />
           About
         </div>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl gap-4">
           Crafting systems with intention
         </h2>
         <p className="text-muted-foreground">
-          Swap in a brief narrative about your journey, preferred stack, or
-          leadership style. Keep the tone professional, mirror the length of the
-          original copy, and make it easy to personalize later.
+          I build software with a craftsman mindset, pairing architectural rigor
+          with an eagerness to explore new technology. My happy place is where
+          resilient backend services, thoughtful frontends and reliable
+          pipelines meet to create impactful hiring experiences.
         </p>
         <p className="text-muted-foreground">
-          Add another paragraph for side interests, ongoing experiments, or
-          speaking topics. This helps visitors understand the breadth of your
-          interests without committing to real details yet.
+          From GitOps workflows and Kubernetes automation to cloud-native
+          governance in AWS, I look for pragmatic solutions that help teams ship
+          faster without compromising quality or trust. I thrive in
+          collaborative environments where mentorship and shared ownership are
+          core values.
+        </p>
+        <p className="text-muted-foreground">
+          I hold the ICAgile Certified Professional credential and earned a
+          Bachelor&apos;s degree in Naval Architecture and Marine Engineering
+          from Saint Petersburg State Marine Technical University.
         </p>
       </div>
 
       <Card className="border-dashed">
         <CardHeader className="space-y-2">
           <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-            <BriefcaseBusinessIcon
+            <SparklesIcon
               className="size-5 text-primary"
               aria-hidden="true"
             />
-            Currently
+            Interests
           </CardTitle>
           <CardDescription>
-            Placeholder title for your present role, team, or focus area
+            Passionate about technology and always exploring what&apos;s next.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4 text-sm text-muted-foreground">
           <p>
-            Use this space to describe day-to-day responsibilities, big-picture
-            goals, or how you measure success. Keep the phrasing flexible so you
-            can substitute real experience with minimal edits.
+            I have a deep passion for technology and love exploring new tools
+            and frameworks. Recently, I&apos;ve been tinkering with AI tooling,
+            setting up micro Kubernetes clusters, and diving into interesting
+            frameworks like TanStack.
           </p>
           <ul className="grid gap-2">
-            <li className="flex items-center gap-2">
+            <li className="flex items-start gap-2">
               <span
-                className="size-2 rounded-full bg-primary"
+                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
                 aria-hidden="true"
               />
-              Placeholder bullet highlighting an ongoing initiative or metric
+              <span>
+                Experimenting with Linux distros and customizing my development
+                environment. Check out my{' '}
+                <a
+                  href="https://github.com/wannfq/dotfiles"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+                >
+                  dotfiles
+                </a>
+                !
+              </span>
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-start gap-2">
               <span
-                className="size-2 rounded-full bg-primary"
+                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
                 aria-hidden="true"
               />
-              Another bullet ready for an achievement, leadership moment, or
-              platform milestone
+              <span>Building custom mechanical keyboards as a hands-on hobby.</span>
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-start gap-2">
               <span
-                className="size-2 rounded-full bg-primary"
+                className="mt-1 size-2 shrink-0 rounded-full bg-primary"
                 aria-hidden="true"
               />
-              Final bullet for a culture impact, mentoring win, or process tweak
+              <span>Unwinding with movies, music, gaming, and anime.</span>
             </li>
           </ul>
         </CardContent>
-        <CardFooter className="text-xs text-muted-foreground/80">
-          Previously at Placeholder Company A, Placeholder Company B,
-          Placeholder Company C
-        </CardFooter>
       </Card>
     </section>
   )
 }
 
-function ProjectsSection() {
+function ExperienceSection() {
   return (
-    <section id="projects" className="space-y-6">
+    <section id="experience" className="space-y-6">
       <header className="space-y-2">
         <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
           <RocketIcon className="size-4" aria-hidden="true" />
-          Projects
+          Experience
         </div>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Selected work
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl gap-4">
+          Previous Experience
         </h2>
         <p className="max-w-2xl text-muted-foreground">
-          Introduce the kinds of projects you plan to feature—think product
-          launches, DevEx upgrades, or platform initiatives that match the
-          structure of the original example.
+          A snapshot of the platforms, products and engineering practices I have
+          shaped across marketplace, recruitment and bespoke software domains.
         </p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((project) => (
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+        {experiences.map((experience) => (
           <Card
-            key={project.title}
+            key={`${experience.company}-${experience.role}-${experience.period}`}
             className="group h-full border-dashed transition-all hover:border-primary/60 hover:shadow-lg"
           >
-            <CardHeader>
-              <CardTitle className="flex items-center justify-between text-lg font-semibold">
-                {project.title}
-                <span className="inline-flex items-center gap-1 text-xs font-normal text-primary">
-                  Case Study
-                  <ArrowRightIcon className="size-3" aria-hidden="true" />
+            <CardHeader className="space-y-4">
+              <div className="flex items-start justify-between gap-4">
+                <CardTitle className="text-lg font-semibold">
+                  {experience.role}
+                </CardTitle>
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/70">
+                  {experience.period}
                 </span>
-              </CardTitle>
-              <CardDescription>{project.description}</CardDescription>
+              </div>
+              <CardDescription className="text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
+                {experience.company}
+                {experience.location ? ` • ${experience.location}` : ''}
+              </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {project.highlights.map((item) => (
-                <Badge
-                  key={item}
-                  variant="secondary"
-                  className="rounded-full px-3 py-1 text-[0.7rem]"
-                >
-                  {item}
-                </Badge>
-              ))}
+            <CardContent className="space-y-4 text-sm text-muted-foreground">
+              <p>{experience.summary}</p>
+              <ul className="grid gap-2">
+                {experience.highlights.map((highlight) => (
+                  <li key={highlight} className="flex items-start gap-2">
+                    <span
+                      className="mt-1 size-2 shrink-0 rounded-full bg-primary"
+                      aria-hidden="true"
+                    />
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
             </CardContent>
           </Card>
         ))}
+
+        <Card
+          key="coming-soon"
+          className="group h-full border-dashed transition-all hover:border-primary/60 hover:shadow-lg"
+        >
+          <CardHeader className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <CardTitle className="text-lg font-semibold">
+                Coming Soon...
+              </CardTitle>
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/70"></span>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm text-muted-foreground">
+            <p>Stay tuned for more updates!</p>
+          </CardContent>
+        </Card>
       </div>
     </section>
   )
@@ -321,8 +394,9 @@ function ContactSection() {
           Let&apos;s build something together
         </h2>
         <p className="max-w-2xl text-muted-foreground">
-          Encourage visitors to reach out with a sentence that approximates the
-          original length while leaving room for real details once available.
+          Reach out to collaborate on platforms, developer experience
+          initiatives or coaching opportunities. I aim to respond within a
+          couple of business days.
         </p>
       </header>
 
@@ -330,12 +404,12 @@ function ContactSection() {
         <CardContent className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground/80">
-              Start a conversation
+              Let's have a talk
             </p>
-            <h3 className="text-2xl font-semibold">you@example.com</h3>
+            <h3 className="text-2xl font-semibold">wannfq@gmail.com</h3>
             <p className="text-sm text-muted-foreground">
-              Mention expected response times, preferred engagement models, or
-              anything else prospects should know before contacting you.
+              Happy to chat about platform engineering, resilient architectures,
+              developer tooling, or the next frontier in AI technology.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
