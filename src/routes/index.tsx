@@ -146,10 +146,10 @@ function HeroSection() {
             </div>
 
             <p className="py-4 text-base text-muted-foreground sm:text-lg">
-              Software craftsman and architecture connoisseur building resilient
-              systems that solve real business problems. Language- and
-              technology-agnostic, I love unifying systems and empowering teams
-              with dependable tooling.
+              I build backend systems and developer tools, focusing on
+              reliability and practical solutions. Comfortable across languages
+              and stacks, I enjoy connecting disparate systems and helping teams
+              ship with confidence.
             </p>
 
             <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
@@ -225,22 +225,23 @@ function AboutSection() {
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
         <div className="space-y-6">
           <p className="text-muted-foreground">
-            I build software with a craftsman mindset, pairing architectural
-            rigor with an eagerness to explore new technology. My happy place is
-            where resilient backend services, thoughtful frontends and reliable
-            pipelines meet to create impactful hiring experiences.
+            I like working across the stack: backend services, frontends, and
+            the pipelines that tie them together. I'm always curious about new tools
+            and approaches, and I try to pick the right ones for the job rather
+            than chasing trends.
           </p>
           <p className="text-muted-foreground">
-            From GitOps workflows and Kubernetes automation to cloud-native
-            governance in AWS, I look for pragmatic solutions that help teams
-            ship faster without compromising quality or trust. I thrive in
-            collaborative environments where mentorship and shared ownership are
-            core values.
+            I try to pick the right approach for each situation. Sometimes that
+            means keeping things simple, other times it calls for something more
+            robust. Either way, I prioritise scalability, resilience, and
+            solutions that teams can actually maintain. I enjoy collaborative
+            environments where people learn from each other.
           </p>
           <p className="text-muted-foreground">
-            I hold the ICAgile Certified Professional credential and earned a
-            Bachelor&apos;s degree in Naval Architecture and Marine Engineering
-            from Saint Petersburg State Marine Technical University.
+            I studied Naval Architecture and Marine Engineering at Saint
+            Petersburg State Marine Technical University. Software always
+            intrigued me, and I eventually made the switch. An unexpected path,
+            but one that taught me to think in systems.
           </p>
         </div>
 
