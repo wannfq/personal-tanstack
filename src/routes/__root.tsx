@@ -4,6 +4,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import appCss from '../styles.css?url'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { NotFound } from '@/components/not-found'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -28,9 +29,7 @@ export const Route = createRootRoute({
   }),
 
   shellComponent: RootDocument,
-  notFoundComponent: () => {
-    return <p>Not found!</p>
-  },
+  notFoundComponent: NotFound,
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {

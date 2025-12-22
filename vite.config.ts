@@ -20,6 +20,9 @@ const config = defineConfig({
     viteReact(),
     netlify(),
   ],
+  ssr: {
+    noExternal: ['@tabler/icons-react'],
+  },
 })
 
 export default config

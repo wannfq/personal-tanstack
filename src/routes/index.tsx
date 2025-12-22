@@ -22,6 +22,7 @@ import {
 import { buttonVariants } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
+import profilePicture from '@/assets/profile-picture-afiq.jpg'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -194,9 +195,13 @@ function HeroSection() {
       <div className="relative flex items-center justify-center">
         <div className="relative flex size-full items-center justify-center overflow-hidden border border-border/40 bg-background/90 shadow-inner">
           <img
-            src="/profile-picture-afiq.jpg"
+            src={profilePicture}
             alt="Wan Afiq"
-            className="size-full object-cover"
+            className="size-full object-cover grayscale"
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-primary/10 mix-blend-color"
+            aria-hidden="true"
           />
         </div>
       </div>
