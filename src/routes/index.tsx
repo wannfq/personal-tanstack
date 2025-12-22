@@ -305,6 +305,20 @@ function AboutSection() {
           </CardContent>
         </Card>
       </div>
+
+      <p className="text-sm italic text-muted-foreground">
+        This site is built with TanStack Start and React. You can view the
+        source on{' '}
+        <a
+          href="https://github.com/wannfq/personal-tanstack"
+          target="_blank"
+          rel="noreferrer"
+          className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+        >
+          GitHub
+        </a>
+        .
+      </p>
     </section>
   )
 }
