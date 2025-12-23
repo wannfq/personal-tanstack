@@ -52,9 +52,9 @@ export function ThemeToggle() {
 
   const icon =
     theme === 'dark' ? (
-      <IconSun className="size-6" aria-hidden="true" />
+      <IconSun className="size-5" aria-hidden="true" />
     ) : (
-      <IconMoon className="size-6" aria-hidden="true" />
+      <IconMoon className="size-5" aria-hidden="true" />
     )
 
   return (
@@ -64,7 +64,7 @@ export function ThemeToggle() {
       type="button"
       aria-label={`Activate ${theme === 'dark' ? 'light' : 'dark'} mode`}
       onClick={handleToggle}
-      className="h-12 w-12 rounded-full border border-border/60 bg-background/80 p-2.5 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/40"
+      className="h-10 w-10 rounded-full border border-border/60 bg-background/80 p-2.5 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/40"
     >
       {icon}
       <span className="sr-only">

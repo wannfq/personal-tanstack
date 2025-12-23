@@ -114,7 +114,7 @@ const contactLinks = [
 function HomePage() {
   return (
     <div className="bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 py-12 sm:px-10 lg:px-12">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pt-12 pb-20 sm:px-10 lg:px-12">
         <HeroSection />
         <Separator className="bg-border/60" />
         <AboutSection />

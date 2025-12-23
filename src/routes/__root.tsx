@@ -1,47 +1,47 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute, useRouter } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { useEffect } from 'react'
 
 import appCss from '../styles.css?url'
-import { ThemeToggle } from '@/components/theme-toggle'
 import { NotFound } from '@/components/not-found'
+import { PostHogProvider } from '@/components/ui/posthog-provider'
+import { initWebVitals } from '@/lib/telemetry'
+import { Navigation } from '@/components/navigation'
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: "Wan Afiq's Website",
-      },
-    ],
-    links: [
-      {
-        rel: 'stylesheet',
-        href: appCss,
-      },
-    ],
-  }),
-
-  shellComponent: RootDocument,
+  component: RootComponent,
+  errorComponent: RootErrorComponent,
   notFoundComponent: NotFound,
+  wrapInSuspense: true,
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootComponent() {
+  const router = useRouter()
+
+  useEffect(() => {
+    // Initialize Web Vitals tracking
+    initWebVitals()
+  }, [])
+
+  return (
+    <RootDocument router={router}>
+      <Navigation />
+      <PostHogProvider>
+        <Outlet />
+      </PostHogProvider>
+    </RootDocument>
+  )
+}
+
+function RootDocument({ children }: { children: React.ReactNode; router: ReturnType<typeof useRouter> }) {
   return (
     <html lang="en" className="dark">
       <head>
         <HeadContent />
+        <link rel="stylesheet" href={appCss} />
       </head>
       <body>
-        <div className="fixed right-4 top-4 z-50">
-          <ThemeToggle />
-        </div>
         {children}
         <TanStackDevtools
           config={{
@@ -54,6 +54,22 @@ function RootDocument({ children }: { children: React.ReactNode }) {
             },
           ]}
         />
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+
+function RootErrorComponent() {
+  return (
+    <html lang="en" className="dark">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <div className="flex min-h-screen items-center justify-center">
+          <h1 className="text-2xl font-bold">Something went wrong</h1>
+        </div>
         <Scripts />
       </body>
     </html>
