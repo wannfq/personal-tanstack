@@ -142,8 +142,11 @@ export function GeoMap({ data }: GeoMapProps) {
           </svg>
         </div>
 
-        {/* City details panel */}
-        <div className="w-80">
+        
+      </div>
+      <div className="flex gap-6">
+{/* City details panel */}
+        <div className="flex-1">
           <h4 className="text-sm font-medium text-gray-400 mb-4">
             Top Locations
           </h4>
@@ -163,26 +166,15 @@ export function GeoMap({ data }: GeoMapProps) {
                   onClick={() => setSelectedCity(city.city)}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <p className="font-medium text-white">{city.city}</p>
-                      <p className="text-sm text-gray-400">{city.country}</p>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-sm text-gray-400">{city.country} <span className="font-medium text-white">{city.city}</span></p>
+                      <p className="text-sm text-gray-400">Visitors <span className="font-medium text-white">{city.count}</span></p>
                     </div>
-                    <Badge
-                      className={`${getPerformanceBadgeColor(rating)} text-white`}
-                    >
-                      {getPerformanceBadgeText(rating)}
-                    </Badge>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-sm">
-                    <div>
-                      <p className="text-gray-500">Visitors</p>
-                      <p className="text-white font-medium">{city.count}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-500">Avg LCP</p>
-                      <p className="text-white font-medium">
-                        {city.averageLcp.toFixed(0)}ms
-                      </p>
+                    <div className="flex flex-col gap-2">
+                      <p className="text-sm text-gray-400">Avg LCP <span className="font-medium text-white">{city.averageLcp.toFixed(0)}ms</span></p>
+                      <Badge className={`${getPerformanceBadgeColor(rating)} text-white`}>
+                        {getPerformanceBadgeText(rating)}
+                      </Badge>
                     </div>
                   </div>
                 </div>
@@ -197,6 +189,7 @@ export function GeoMap({ data }: GeoMapProps) {
           )}
         </div>
       </div>
+      
     </Card>
   )
 }

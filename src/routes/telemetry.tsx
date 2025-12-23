@@ -122,7 +122,7 @@ function TelemetryDashboard() {
         <OverviewCards metrics={overviewMetrics} timeRange={timeRange} />
       </div>
 
-      <div className="mb-8 grid gap-6 lg:grid-cols-2">
+      <div className="mb-8 grid gap-6">
         <div>
           <h2 className="mb-4 text-2xl font-semibold">Latency Trends</h2>
           <LatencyChart data={timeSeriesData} timeRange={timeRange} />

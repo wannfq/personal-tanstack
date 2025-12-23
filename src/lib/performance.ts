@@ -49,6 +49,19 @@ export function getPerformanceBadgeColor(rating: PerformanceRating): string {
   }
 }
 
+export function getPerformanceTextColor(rating: PerformanceRating): string {
+  switch (rating) {
+    case 'good':
+      return 'text-green-500'
+    case 'needs-improvement':
+      return 'text-yellow-500'
+    case 'poor':
+      return 'text-red-500'
+    default:
+      return 'text-white'
+  }
+}
+
 export function getPerformanceBadgeText(rating: PerformanceRating): string {
   switch (rating) {
     case 'good':

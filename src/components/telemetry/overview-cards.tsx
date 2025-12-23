@@ -1,8 +1,7 @@
 import { Card } from '@/components/ui/card'
 import {
   getPerformanceRating,
-  getPerformanceBadgeColor,
-  getPerformanceBadgeText,
+  getPerformanceTextColor,
 } from '@/lib/performance'
 
 interface OverviewCardProps {
@@ -10,6 +9,7 @@ interface OverviewCardProps {
   value: string | number
   change?: string
   changeDirection?: 'up' | 'down' | 'neutral'
+  textColor?: string
   badge?: {
     text: string
     color: string
@@ -21,14 +21,14 @@ function OverviewCard({
   value,
   change,
   changeDirection,
-  badge,
+  textColor,
 }: OverviewCardProps) {
   return (
     <Card className="p-6">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-gray-400">{title}</p>
-          <p className="mt-2 text-3xl font-bold text-white">{value}</p>
+          <p className={`mt-2 text-3xl font-bold ${textColor || 'text-white'}`}>{value}</p>
           {change && (
             <p
               className={`mt-2 text-sm ${
@@ -43,13 +43,6 @@ function OverviewCard({
             </p>
           )}
         </div>
-        {badge && (
-          <span
-            className={`px-3 py-1 text-xs font-medium text-white rounded-full ${badge.color}`}
-          >
-            {badge.text}
-          </span>
-        )}
       </div>
     </Card>
   )
@@ -78,53 +71,25 @@ export function OverviewCards({ metrics, timeRange }: OverviewCardsProps) {
       <OverviewCard
         title="Avg LCP"
         value={`${metrics.averageLcp.toFixed(0)}ms`}
-        badge={{
-          text: getPerformanceBadgeText(
-            getPerformanceRating('lcp', metrics.averageLcp),
-          ),
-          color: getPerformanceBadgeColor(
-            getPerformanceRating('lcp', metrics.averageLcp),
-          ),
-        }}
+        textColor={getPerformanceTextColor(getPerformanceRating('lcp', metrics.averageLcp))}
       />
 
       <OverviewCard
         title="Avg FCP"
         value={`${metrics.averageFcp.toFixed(0)}ms`}
-        badge={{
-          text: getPerformanceBadgeText(
-            getPerformanceRating('fcp', metrics.averageFcp),
-          ),
-          color: getPerformanceBadgeColor(
-            getPerformanceRating('fcp', metrics.averageFcp),
-          ),
-        }}
+        textColor={getPerformanceTextColor(getPerformanceRating('fcp', metrics.averageFcp))}
       />
 
       <OverviewCard
         title="Avg INP"
         value={`${metrics.averageInp.toFixed(0)}ms`}
-        badge={{
-          text: getPerformanceBadgeText(
-            getPerformanceRating('inp', metrics.averageInp),
-          ),
-          color: getPerformanceBadgeColor(
-            getPerformanceRating('inp', metrics.averageInp),
-          ),
-        }}
+        textColor={getPerformanceTextColor(getPerformanceRating('inp', metrics.averageInp))}
       />
 
       <OverviewCard
         title="Avg CLS"
         value={metrics.averageCls.toFixed(3)}
-        badge={{
-          text: getPerformanceBadgeText(
-            getPerformanceRating('cls', metrics.averageCls),
-          ),
-          color: getPerformanceBadgeColor(
-            getPerformanceRating('cls', metrics.averageCls),
-          ),
-        }}
+        textColor={getPerformanceTextColor(getPerformanceRating('cls', metrics.averageCls))}
       />
     </div>
   )
