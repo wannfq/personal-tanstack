@@ -226,9 +226,9 @@ function AboutSection() {
         <div className="space-y-6">
           <p className="text-muted-foreground">
             I like working across the stack: backend services, frontends, and
-            the pipelines that tie them together. I'm always curious about new tools
-            and approaches, and I try to pick the right ones for the job rather
-            than chasing trends.
+            the pipelines that tie them together. I'm always curious about new
+            tools and approaches, and I try to pick the right ones for the job
+            rather than chasing trends.
           </p>
           <p className="text-muted-foreground">
             I try to pick the right approach for each situation. Sometimes that

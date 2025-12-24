@@ -5,4 +5,3 @@ import { NotFound } from '@/components/not-found'
 export const Route = createFileRoute('/$')({
   component: NotFound,
 })
-

@@ -23,7 +23,9 @@ export function Navigation() {
             Telemetry
           </Link> */}
         </div>
-        <ThemeToggle />
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   )

@@ -1,77 +1,84 @@
-import { HeadContent, Outlet, Scripts, createRootRoute, useRouter } from '@tanstack/react-router'
-import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import {
+  HeadContent,
+  Outlet,
+  Scripts,
+  createRootRoute,
+} from '@tanstack/react-router'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { ConvexProvider, ConvexReactClient } from 'convex/react'
 
 import appCss from '../styles.css?url'
 import { NotFound } from '@/components/not-found'
 import { PostHogProvider } from '@/components/ui/posthog-provider'
 import { initWebVitals } from '@/lib/telemetry'
 import { Navigation } from '@/components/navigation'
+import { VisitorCounter } from '@/components/visitor-counter'
 
 export const Route = createRootRoute({
-  component: RootComponent,
-  errorComponent: RootErrorComponent,
+  head: () => ({
+    links: [
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', href: '/logo.svg' },
+    ],
+    meta: [
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ],
+  }),
   notFoundComponent: NotFound,
-  wrapInSuspense: true,
+  component: RootComponent,
 })
 
-function RootComponent() {
-  const router = useRouter()
-
-  useEffect(() => {
-    // Initialize Web Vitals tracking
-    initWebVitals()
-  }, [])
-
-  return (
-    <RootDocument router={router}>
-      <Navigation />
-      <PostHogProvider>
-        <Outlet />
-      </PostHogProvider>
-    </RootDocument>
-  )
-}
-
-function RootDocument({ children }: { children: React.ReactNode; router: ReturnType<typeof useRouter> }) {
+function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
       <head>
         <HeadContent />
-        <link rel="stylesheet" href={appCss} />
       </head>
       <body>
         {children}
-        <TanStackDevtools
-          config={{
-            position: 'bottom-right',
-          }}
-          plugins={[
-            {
-              name: 'Tanstack Router',
-              render: <TanStackRouterDevtoolsPanel />,
-            },
-          ]}
-        />
+        <TanStackDevtools />
         <Scripts />
       </body>
     </html>
   )
 }
 
-function RootErrorComponent() {
+function RootComponent() {
+  const [convexClient, setConvexClient] = useState<ConvexReactClient | null>(
+    null,
+  )
+
+  useEffect(() => {
+    initWebVitals()
+    if (typeof window !== 'undefined') {
+      const client = new ConvexReactClient(
+        import.meta.env.VITE_CONVEX_URL ||
+          'https://doting-lemming-385.convex.cloud',
+      )
+      setConvexClient(client)
+    }
+  }, [])
+
   return (
-    <html lang="en" className="dark">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <div className="flex min-h-screen items-center justify-center">
-          <h1 className="text-2xl font-bold">Something went wrong</h1>
-        </div>
-        <Scripts />
-      </body>
-    </html>
+    <RootDocument>
+      {convexClient ? (
+        <ConvexProvider client={convexClient}>
+          <Navigation />
+          <PostHogProvider>
+            <Outlet />
+          </PostHogProvider>
+          <VisitorCounter />
+        </ConvexProvider>
+      ) : (
+        <>
+          <Navigation />
+          <PostHogProvider>
+            <Outlet />
+          </PostHogProvider>
+        </>
+      )}
+    </RootDocument>
   )
 }

@@ -5,7 +5,12 @@ import { OverviewCards } from '@/components/telemetry/overview-cards'
 import { LatencyChart } from '@/components/telemetry/latency-chart'
 import { GeoMap } from '@/components/telemetry/geo-map'
 import { PagePerformance } from '@/components/telemetry/page-table'
-import { getDashboardMetrics, getGeoData, getPagePerformance, getTimeSeriesData } from '@/lib/posthog-queries'
+import {
+  getDashboardMetrics,
+  getGeoData,
+  getPagePerformance,
+  getTimeSeriesData,
+} from '@/lib/posthog-queries'
 import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/telemetry')({
@@ -22,29 +27,35 @@ function TelemetryDashboard() {
     averageInp: 0,
     averageCls: 0,
   })
-  const [timeSeriesData, setTimeSeriesData] = useState<Array<{
-    timestamp: number
-    lcp: number
-    fcp: number
-    inp: number
-    cls: number
-  }>>([])
-  const [geoData, setGeoData] = useState<Array<{
-    city: string
-    country: string
-    latitude: number
-    longitude: number
-    count: number
-    averageLcp: number
-  }>>([])
-  const [pageData, setPageData] = useState<Array<{
-    path: string
-    views: number
-    averageLcp: number
-    averageFcp: number
-    averageInp: number
-    averageCls: number
-  }>>([])
+  const [timeSeriesData, setTimeSeriesData] = useState<
+    Array<{
+      timestamp: number
+      lcp: number
+      fcp: number
+      inp: number
+      cls: number
+    }>
+  >([])
+  const [geoData, setGeoData] = useState<
+    Array<{
+      city: string
+      country: string
+      latitude: number
+      longitude: number
+      count: number
+      averageLcp: number
+    }>
+  >([])
+  const [pageData, setPageData] = useState<
+    Array<{
+      path: string
+      views: number
+      averageLcp: number
+      averageFcp: number
+      averageInp: number
+      averageCls: number
+    }>
+  >([])
 
   const fetchData = async () => {
     setLoading(true)
@@ -74,9 +85,12 @@ function TelemetryDashboard() {
 
   // Auto-refresh every 5 minutes
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchData()
-    }, 5 * 60 * 1000) // 5 minutes
+    const interval = setInterval(
+      () => {
+        fetchData()
+      },
+      5 * 60 * 1000,
+    ) // 5 minutes
 
     return () => clearInterval(interval)
   }, [timeRange])
@@ -94,7 +108,9 @@ function TelemetryDashboard() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Telemetry Dashboard</h1>
-          <p className="text-muted-foreground">Real-time performance monitoring</p>
+          <p className="text-muted-foreground">
+            Real-time performance monitoring
+          </p>
         </div>
         <div className="flex gap-2">
           <Button
@@ -128,7 +144,9 @@ function TelemetryDashboard() {
           <LatencyChart data={timeSeriesData} timeRange={timeRange} />
         </div>
         <div>
-          <h2 className="mb-4 text-2xl font-semibold">Geographic Distribution</h2>
+          <h2 className="mb-4 text-2xl font-semibold">
+            Geographic Distribution
+          </h2>
           <GeoMap data={geoData} />
         </div>
       </div>

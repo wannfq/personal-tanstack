@@ -18,9 +18,7 @@ export function LatencyChart({ data, timeRange }: LatencyChartProps) {
   const padding = { top: 20, right: 20, bottom: 40, left: 60 }
 
   // Calculate scales
-  const maxY = Math.max(
-    ...data.map((d) => Math.max(d.lcp, d.fcp, d.inp)),
-  ) * 1.1
+  const maxY = Math.max(...data.map((d) => Math.max(d.lcp, d.fcp, d.inp))) * 1.1
   const minY = 0
 
   const chartWidth = width - padding.left - padding.right
@@ -96,9 +94,7 @@ export function LatencyChart({ data, timeRange }: LatencyChartProps) {
           fill="none"
           stroke="#10B981"
           strokeWidth={2}
-          points={data
-            .map((d, i) => `${xScale(i)},${yScale(d.lcp)}`)
-            .join(' ')}
+          points={data.map((d, i) => `${xScale(i)},${yScale(d.lcp)}`).join(' ')}
         />
 
         {/* FCP line */}
@@ -106,9 +102,7 @@ export function LatencyChart({ data, timeRange }: LatencyChartProps) {
           fill="none"
           stroke="#3B82F6"
           strokeWidth={2}
-          points={data
-            .map((d, i) => `${xScale(i)},${yScale(d.fcp)}`)
-            .join(' ')}
+          points={data.map((d, i) => `${xScale(i)},${yScale(d.fcp)}`).join(' ')}
         />
 
         {/* INP line */}
@@ -116,9 +110,7 @@ export function LatencyChart({ data, timeRange }: LatencyChartProps) {
           fill="none"
           stroke="#8B5CF6"
           strokeWidth={2}
-          points={data
-            .map((d, i) => `${xScale(i)},${yScale(d.inp)}`)
-            .join(' ')}
+          points={data.map((d, i) => `${xScale(i)},${yScale(d.inp)}`).join(' ')}
         />
       </svg>
 

@@ -28,7 +28,9 @@ function OverviewCard({
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-gray-400">{title}</p>
-          <p className={`mt-2 text-3xl font-bold ${textColor || 'text-white'}`}>{value}</p>
+          <p className={`mt-2 text-3xl font-bold ${textColor || 'text-white'}`}>
+            {value}
+          </p>
           {change && (
             <p
               className={`mt-2 text-sm ${
@@ -71,25 +73,33 @@ export function OverviewCards({ metrics, timeRange }: OverviewCardsProps) {
       <OverviewCard
         title="Avg LCP"
         value={`${metrics.averageLcp.toFixed(0)}ms`}
-        textColor={getPerformanceTextColor(getPerformanceRating('lcp', metrics.averageLcp))}
+        textColor={getPerformanceTextColor(
+          getPerformanceRating('lcp', metrics.averageLcp),
+        )}
       />
 
       <OverviewCard
         title="Avg FCP"
         value={`${metrics.averageFcp.toFixed(0)}ms`}
-        textColor={getPerformanceTextColor(getPerformanceRating('fcp', metrics.averageFcp))}
+        textColor={getPerformanceTextColor(
+          getPerformanceRating('fcp', metrics.averageFcp),
+        )}
       />
 
       <OverviewCard
         title="Avg INP"
         value={`${metrics.averageInp.toFixed(0)}ms`}
-        textColor={getPerformanceTextColor(getPerformanceRating('inp', metrics.averageInp))}
+        textColor={getPerformanceTextColor(
+          getPerformanceRating('inp', metrics.averageInp),
+        )}
       />
 
       <OverviewCard
         title="Avg CLS"
         value={metrics.averageCls.toFixed(3)}
-        textColor={getPerformanceTextColor(getPerformanceRating('cls', metrics.averageCls))}
+        textColor={getPerformanceTextColor(
+          getPerformanceRating('cls', metrics.averageCls),
+        )}
       />
     </div>
   )

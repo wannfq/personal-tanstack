@@ -3,7 +3,11 @@ import { IconArrowDown, IconArrowUp } from '@tabler/icons-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { getPerformanceBadgeColor, getPerformanceBadgeText, getPerformanceRating } from '@/lib/performance'
+import {
+  getPerformanceBadgeColor,
+  getPerformanceBadgeText,
+  getPerformanceRating,
+} from '@/lib/performance'
 
 interface PagePerformanceProps {
   data: Array<{
@@ -16,7 +20,13 @@ interface PagePerformanceProps {
   }>
 }
 
-type SortField = 'path' | 'views' | 'averageLcp' | 'averageFcp' | 'averageInp' | 'averageCls'
+type SortField =
+  | 'path'
+  | 'views'
+  | 'averageLcp'
+  | 'averageFcp'
+  | 'averageInp'
+  | 'averageCls'
 type SortDirection = 'asc' | 'desc'
 
 export function PagePerformance({ data }: PagePerformanceProps) {
@@ -51,7 +61,7 @@ export function PagePerformance({ data }: PagePerformanceProps) {
     )
   }
 
-  const overallRating = (page: typeof data[0]) => {
+  const overallRating = (page: (typeof data)[0]) => {
     // Calculate overall rating based on all metrics
     const lcpRating = getPerformanceRating('lcp', page.averageLcp)
     const fcpRating = getPerformanceRating('fcp', page.averageFcp)
@@ -63,7 +73,9 @@ export function PagePerformance({ data }: PagePerformanceProps) {
       return 'poor'
     }
     // If any metric needs improvement, overall needs improvement
-    if ([lcpRating, fcpRating, inpRating, clsRating].includes('needs-improvement')) {
+    if (
+      [lcpRating, fcpRating, inpRating, clsRating].includes('needs-improvement')
+    ) {
       return 'needs-improvement'
     }
     return 'good'
@@ -72,9 +84,7 @@ export function PagePerformance({ data }: PagePerformanceProps) {
   return (
     <Card className="p-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-white">
-          Page Performance
-        </h3>
+        <h3 className="text-lg font-semibold text-white">Page Performance</h3>
       </div>
 
       <div className="overflow-x-auto">
@@ -147,9 +157,7 @@ export function PagePerformance({ data }: PagePerformanceProps) {
                   <SortIcon field="averageCls" />
                 </Button>
               </th>
-              <th className="text-left py-3 px-4">
-                Status
-              </th>
+              <th className="text-left py-3 px-4">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -169,46 +177,58 @@ export function PagePerformance({ data }: PagePerformanceProps) {
                     {page.views.toLocaleString()}
                   </td>
                   <td className="py-3 px-4">
-                    <span className={`text-sm ${
-                      getPerformanceRating('lcp', page.averageLcp) === 'good'
-                        ? 'text-green-400'
-                        : getPerformanceRating('lcp', page.averageLcp) === 'needs-improvement'
-                          ? 'text-yellow-400'
-                          : 'text-red-400'
-                    }`}>
+                    <span
+                      className={`text-sm ${
+                        getPerformanceRating('lcp', page.averageLcp) === 'good'
+                          ? 'text-green-400'
+                          : getPerformanceRating('lcp', page.averageLcp) ===
+                              'needs-improvement'
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
                       {page.averageLcp.toFixed(0)}ms
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <span className={`text-sm ${
-                      getPerformanceRating('fcp', page.averageFcp) === 'good'
-                        ? 'text-green-400'
-                        : getPerformanceRating('fcp', page.averageFcp) === 'needs-improvement'
-                          ? 'text-yellow-400'
-                          : 'text-red-400'
-                    }`}>
+                    <span
+                      className={`text-sm ${
+                        getPerformanceRating('fcp', page.averageFcp) === 'good'
+                          ? 'text-green-400'
+                          : getPerformanceRating('fcp', page.averageFcp) ===
+                              'needs-improvement'
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
                       {page.averageFcp.toFixed(0)}ms
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <span className={`text-sm ${
-                      getPerformanceRating('inp', page.averageInp) === 'good'
-                        ? 'text-green-400'
-                        : getPerformanceRating('inp', page.averageInp) === 'needs-improvement'
-                          ? 'text-yellow-400'
-                          : 'text-red-400'
-                    }`}>
+                    <span
+                      className={`text-sm ${
+                        getPerformanceRating('inp', page.averageInp) === 'good'
+                          ? 'text-green-400'
+                          : getPerformanceRating('inp', page.averageInp) ===
+                              'needs-improvement'
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
                       {page.averageInp.toFixed(0)}ms
                     </span>
                   </td>
                   <td className="py-3 px-4">
-                    <span className={`text-sm ${
-                      getPerformanceRating('cls', page.averageCls) === 'good'
-                        ? 'text-green-400'
-                        : getPerformanceRating('cls', page.averageCls) === 'needs-improvement'
-                          ? 'text-yellow-400'
-                          : 'text-red-400'
-                    }`}>
+                    <span
+                      className={`text-sm ${
+                        getPerformanceRating('cls', page.averageCls) === 'good'
+                          ? 'text-green-400'
+                          : getPerformanceRating('cls', page.averageCls) ===
+                              'needs-improvement'
+                            ? 'text-yellow-400'
+                            : 'text-red-400'
+                      }`}
+                    >
                       {page.averageCls.toFixed(3)}
                     </span>
                   </td>

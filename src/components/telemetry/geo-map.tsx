@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { getPerformanceBadgeColor, getPerformanceBadgeText, getPerformanceRating } from '@/lib/performance'
+import {
+  getPerformanceBadgeColor,
+  getPerformanceBadgeText,
+  getPerformanceRating,
+} from '@/lib/performance'
 
 interface GeoMapProps {
   data: Array<{
@@ -18,7 +22,7 @@ export function GeoMap({ data }: GeoMapProps) {
   const [selectedCity, setSelectedCity] = useState<string | null>(null)
 
   // Simple world map viewBox
-  const viewBox = "0 0 1000 500"
+  const viewBox = '0 0 1000 500'
   const mapWidth = 1000
   const mapHeight = 500
 
@@ -93,10 +97,7 @@ export function GeoMap({ data }: GeoMapProps) {
 
             {/* City markers */}
             {data.map((city) => {
-              const { x, y } = projectCoordinates(
-                city.latitude,
-                city.longitude,
-              )
+              const { x, y } = projectCoordinates(city.latitude, city.longitude)
               const size = getMarkerSize(city.count)
               const isSelected = selectedCity === city.city
 
@@ -141,11 +142,9 @@ export function GeoMap({ data }: GeoMapProps) {
             })}
           </svg>
         </div>
-
-        
       </div>
       <div className="flex gap-6">
-{/* City details panel */}
+        {/* City details panel */}
         <div className="flex-1">
           <h4 className="text-sm font-medium text-gray-400 mb-4">
             Top Locations
@@ -167,12 +166,29 @@ export function GeoMap({ data }: GeoMapProps) {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex flex-col gap-2">
-                      <p className="text-sm text-gray-400">{city.country} <span className="font-medium text-white">{city.city}</span></p>
-                      <p className="text-sm text-gray-400">Visitors <span className="font-medium text-white">{city.count}</span></p>
+                      <p className="text-sm text-gray-400">
+                        {city.country}{' '}
+                        <span className="font-medium text-white">
+                          {city.city}
+                        </span>
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        Visitors{' '}
+                        <span className="font-medium text-white">
+                          {city.count}
+                        </span>
+                      </p>
                     </div>
                     <div className="flex flex-col gap-2">
-                      <p className="text-sm text-gray-400">Avg LCP <span className="font-medium text-white">{city.averageLcp.toFixed(0)}ms</span></p>
-                      <Badge className={`${getPerformanceBadgeColor(rating)} text-white`}>
+                      <p className="text-sm text-gray-400">
+                        Avg LCP{' '}
+                        <span className="font-medium text-white">
+                          {city.averageLcp.toFixed(0)}ms
+                        </span>
+                      </p>
+                      <Badge
+                        className={`${getPerformanceBadgeColor(rating)} text-white`}
+                      >
                         {getPerformanceBadgeText(rating)}
                       </Badge>
                     </div>
@@ -189,7 +205,6 @@ export function GeoMap({ data }: GeoMapProps) {
           )}
         </div>
       </div>
-      
     </Card>
   )
 }
