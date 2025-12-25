@@ -4,9 +4,12 @@ let convexClient: ConvexReactClient | null = null
 
 export function getConvexClient() {
   if (!convexClient && typeof window !== 'undefined') {
-    convexClient = new ConvexReactClient(
-      import.meta.env.CONVEX_URL || 'https://deployment.convex.cloud',
-    )
+    const convexUrl = import.meta.env.VITE_CONVEX_URL
+    if (!convexUrl) {
+      console.error('VITE_CONVEX_URL is not set. Please add it to your .env file.')
+      return null
+    }
+    convexClient = new ConvexReactClient(convexUrl)
   }
   return convexClient
 }
