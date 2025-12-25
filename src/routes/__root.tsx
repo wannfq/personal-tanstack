@@ -5,15 +5,16 @@ import {
   createRootRoute,
 } from '@tanstack/react-router'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { ConvexProvider } from 'convex/react'
 import { useEffect, useState } from 'react'
-import { ConvexProvider, ConvexReactClient } from 'convex/react'
 
 import appCss from '../styles.css?url'
+import { Footer } from '@/components/footer'
 import { NotFound } from '@/components/not-found'
 import { PostHogProvider } from '@/components/ui/posthog-provider'
 import { initWebVitals } from '@/lib/telemetry'
 import { Navigation } from '@/components/navigation'
-import { VisitorCounter } from '@/components/visitor-counter'
+import { getConvexClient } from '../lib/convex'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -36,7 +37,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="flex min-h-screen flex-col">
         {children}
         <TanStackDevtools />
         <Scripts />
@@ -46,36 +47,35 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 }
 
 function RootComponent() {
-  const [convexClient, setConvexClient] = useState<ConvexReactClient | null>(
-    null,
-  )
+  const [client, setClient] = useState<ReturnType<
+    typeof getConvexClient
+  > | null>(null)
 
   useEffect(() => {
     initWebVitals()
-    if (typeof window !== 'undefined') {
-      const client = new ConvexReactClient(
-        import.meta.env.VITE_CONVEX_URL ||
-          'https://doting-lemming-385.convex.cloud',
-      )
-      setConvexClient(client)
-    }
+    const convex = getConvexClient()
+    setClient(convex)
   }, [])
 
   return (
     <RootDocument>
-      {convexClient ? (
-        <ConvexProvider client={convexClient}>
+      {client ? (
+        <ConvexProvider client={client}>
           <Navigation />
           <PostHogProvider>
-            <Outlet />
+            <main className="flex-1">
+              <Outlet />
+            </main>
           </PostHogProvider>
-          <VisitorCounter />
+          <Footer />
         </ConvexProvider>
       ) : (
         <>
           <Navigation />
           <PostHogProvider>
-            <Outlet />
+            <main className="flex-1">
+              <Outlet />
+            </main>
           </PostHogProvider>
         </>
       )}

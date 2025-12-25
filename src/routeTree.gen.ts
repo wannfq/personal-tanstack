@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TelemetryRouteImport } from './routes/telemetry'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TelemetryRoute = TelemetryRouteImport.update({
   id: '/telemetry',
   path: '/telemetry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SplatRoute = SplatRouteImport.update({
@@ -32,30 +38,34 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/analytics': typeof AnalyticsRoute
   '/telemetry': typeof TelemetryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/analytics': typeof AnalyticsRoute
   '/telemetry': typeof TelemetryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
+  '/analytics': typeof AnalyticsRoute
   '/telemetry': typeof TelemetryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/telemetry'
+  fullPaths: '/' | '/$' | '/analytics' | '/telemetry'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/telemetry'
-  id: '__root__' | '/' | '/$' | '/telemetry'
+  to: '/' | '/$' | '/analytics' | '/telemetry'
+  id: '__root__' | '/' | '/$' | '/analytics' | '/telemetry'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
+  AnalyticsRoute: typeof AnalyticsRoute
   TelemetryRoute: typeof TelemetryRoute
 }
 
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/telemetry'
       fullPath: '/telemetry'
       preLoaderRoute: typeof TelemetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$': {
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
+  AnalyticsRoute: AnalyticsRoute,
   TelemetryRoute: TelemetryRoute,
 }
 export const routeTree = rootRouteImport

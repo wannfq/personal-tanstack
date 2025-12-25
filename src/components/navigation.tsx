@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-// import { IconActivity } from '@tabler/icons-react'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 export function Navigation() {
@@ -14,14 +13,6 @@ export function Navigation() {
           >
             Home
           </Link>
-          {/* <Link
-            to="/telemetry"
-            className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-            activeProps={{ className: 'text-foreground' }}
-          >
-            <IconActivity className="size-4" aria-hidden="true" />
-            Telemetry
-          </Link> */}
         </div>
         <div className="flex items-center gap-4">
           <ThemeToggle />
