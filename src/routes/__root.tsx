@@ -9,12 +9,10 @@ import { ConvexProvider } from 'convex/react'
 import { useEffect, useState } from 'react'
 
 import appCss from '../styles.css?url'
+import { getConvexClient } from '../lib/convex'
 import { Footer } from '@/components/footer'
 import { NotFound } from '@/components/not-found'
-import { PostHogProvider } from '@/components/ui/posthog-provider'
-import { initWebVitals } from '@/lib/telemetry'
 import { Navigation } from '@/components/navigation'
-import { getConvexClient } from '../lib/convex'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -52,7 +50,6 @@ function RootComponent() {
   > | null>(null)
 
   useEffect(() => {
-    initWebVitals()
     const convex = getConvexClient()
     setClient(convex)
   }, [])
@@ -62,21 +59,17 @@ function RootComponent() {
       {client ? (
         <ConvexProvider client={client}>
           <Navigation />
-          <PostHogProvider>
-            <main className="flex-1">
-              <Outlet />
-            </main>
-          </PostHogProvider>
+          <main className="flex-1">
+            <Outlet />
+          </main>
           <Footer />
         </ConvexProvider>
       ) : (
         <>
           <Navigation />
-          <PostHogProvider>
-            <main className="flex-1">
-              <Outlet />
-            </main>
-          </PostHogProvider>
+          <main className="flex-1">
+            <Outlet />
+          </main>
         </>
       )}
     </RootDocument>
