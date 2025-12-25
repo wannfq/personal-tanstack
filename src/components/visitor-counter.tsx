@@ -4,6 +4,8 @@ import { api } from '../../convex/_generated/api'
 import type { VisitorGeoData } from '@/lib/visitor';
 import {  getVisitorGeoData } from '@/lib/visitor'
 
+const fallbackContent = <div className="text-sm text-muted-foreground">Thank you for visiting!</div>
+
 export function VisitorCounter() {
   const [isMounted, setIsMounted] = useState(false)
 
@@ -12,7 +14,7 @@ export function VisitorCounter() {
   }, [])
 
   if (!isMounted) {
-    return <div className="text-sm text-muted-foreground">Loading...</div>
+    return fallbackContent
   }
 
   return <VisitorCounterClient />
@@ -62,7 +64,7 @@ function VisitorCounterClient() {
   }, [visitorId, geoFetched, geoData, recordVisit])
 
   if (visitorCount === undefined) {
-    return <div className="text-sm text-muted-foreground">Loading...</div>
+    return fallbackContent
   }
 
   return (
