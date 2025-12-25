@@ -66,7 +66,7 @@ function VisitorCounterClient() {
   }
 
   return (
-    <div className="text-sm font-medium text-muted-foreground">
+    <div className="text-center text-sm font-medium text-muted-foreground">
       Thank you for being the visitor number{' '}
       <span className="font-semibold text-foreground">
         {visitorCount.toLocaleString()}
