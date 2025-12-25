@@ -11,6 +11,7 @@ export default [
       '.output/**',
       'public/assets/**',
       '.cache/**',
+      'convex/_generated/**',
     ],
   },
   ...tanstackConfig,
