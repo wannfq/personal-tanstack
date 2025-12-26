@@ -1,22 +1,117 @@
 # Agent Playbook
 
-1. Install deps with `bun install`; prefer Bun for all scripts.
-2. Dev server: `bun run dev` (Vite @3000, HMR on).
-3. Production build: `bun run build`; preview with `bun run preview`.
-4. Linting: `bun run lint`; autofix + format: `bun run check`.
-5. Formatting only: `bun run format` (Prettier, no semicolons, single quotes, trailing commas).
-6. Tests: full suite `bun run test`; single file `bun run test -- path/to/file.test.ts`.
-7. Single test case: `bun x vitest run -t "test name"`.
-8. TypeScript strict mode with bundler module resolution and allowJs for config files.
-9. Use `@/` aliases for imports; avoid deep relative paths when an alias exists.
-10. React components must be functional; keep hooks flat at top level.
-11. Styling via Tailwind CSS 4 + shadcn/ui; reuse component variants, avoid inline overrides.
-12. UI icons come from `@tabler/icons-react`; icons use `IconName` prefix convention (e.g., `IconArrowRight`, `IconBrandGithub`).
-13. Maintain accessibility with descriptive aria labels and semantic markup.
-14. Naming: PascalCase components, camelCase utilities/hooks, kebab-case files.
-15. Prefer explicit types/interfaces; lean on TanStack utility types; avoid `any`.
-16. Error handling: narrow try/catch, rethrow typed Errors or Result objects, never swallow failures.
-17. Theme defaults to dark; `ThemeToggle` manages `localStorage` + `html.dark`.
-18. Router uses TanStack Start file routes; commit regenerated `routeTree.gen.ts` artifacts.
-19. Assets live under `public/`; optimize media and respect responsiveness.
-20. No Cursor or Copilot rule files detected; this document is authoritative.
+## Commands
+
+- **Install deps**: `bun install`
+- **Dev server**: `bun run dev` (Vite @3000, HMR enabled)
+- **Production build**: `bun run build`; preview with `bun run preview`
+- **Linting**: `bun run lint`
+- **Autofix + format**: `bun run check`
+- **Format only**: `bun run format` (Prettier)
+- **Full test suite**: `bun run test`
+- **Single test file**: `bun run test -- path/to/file.test.ts`
+- **Single test case**: `bun x vitest run -t "test name"`
+
+## Code Style
+
+### TypeScript
+
+- **Strict mode** enabled
+- **Module resolution**: bundler
+- **AllowJs**: true (for config files)
+- **Path aliases**: `@/` → `./src/*` (configured in tsconfig)
+
+### Formatting (Prettier)
+
+- **No semicolons**
+- **Single quotes**
+- **Trailing commas**: always
+- Run `bun run format` to apply
+
+### Imports & Dependencies
+
+- Use `@/` alias for internal imports, avoid deep relative paths
+- Icons: `@tabler/icons-react` with `IconName` prefix (e.g., `IconArrowRight`, `IconBrandGithub`)
+- UI components: shadcn/ui via local `@/components/ui/*` imports
+- Avoid adding new dependencies without checking existing stack
+
+### React Components
+
+- **Functional components only** (no class components)
+- **Hooks**: keep flat at top level, no nested hooks
+- **Naming**: PascalCase for components (e.g., `Navigation`), kebab-case for files (e.g., `navigation.tsx`)
+- **Styling**: Tailwind CSS 4 with CSS variables for theming
+- Use `cn()` utility from `@/lib/utils` for className merging (wraps clsx + tailwind-merge)
+- Leverage component variants from class-variance-authority, avoid inline style overrides
+
+### Naming Conventions
+
+- Components: PascalCase (`VisitorCounter`)
+- Utilities/hooks: camelCase (`getVisitorGeoData`, `cn`)
+- Files: kebab-case (`visitor-counter.tsx`, `theme-toggle.tsx`)
+- Types/interfaces: PascalCase with descriptive names (`VisitorGeoData`)
+
+### Types
+
+- **Prefer explicit types/interfaces** over `any`
+- Use TanStack utility types when appropriate
+- Server functions (`createServerFn`) should have typed request/response interfaces
+- Null returns for graceful failure (see `src/lib/visitor.ts` pattern)
+
+### Error Handling
+
+- Use **narrow try/catch** blocks
+- Return typed fallback values or Result objects; never swallow failures silently
+- Log errors with `console.error` before returning null/defaults
+- Rethrow typed Errors for critical failures
+
+### Styling
+
+- **Tailwind CSS 4** with shadcn/ui component library
+- **Theme**: dark mode default, managed by `ThemeToggle` via `localStorage` + `html.dark` class
+- **Icons**: always from `@tabler/icons-react`, follow `IconName` pattern
+- Use component variants for consistent styling; don't override with arbitrary Tailwind unless necessary
+
+### Accessibility
+
+- Use semantic HTML elements
+- Include descriptive aria-labels on interactive elements
+- Follow shadcn/ui accessibility patterns for keyboard navigation
+
+### Framework Specifics
+
+- **Router**: TanStack Start with file-based routing in `src/routes/`
+- Route components use `createFileRoute` from `@tanstack/react-router`
+- Commit regenerated `routeTree.gen.ts` artifacts after route changes
+- **SSR**: enabled via Nitro; server functions use `@tanstack/react-start/server`
+- **Backend**: Convex for data persistence (schema in `convex/schema.ts`)
+
+### Testing
+
+- Test files: `*.test.ts` or `*.test.tsx`
+- Testing Library: `@testing-library/react`, `@testing-library/dom`
+- Environment: Vitest with jsdom
+- Write tests for user behavior, not implementation details
+
+### Assets
+
+- Static assets in `public/` directory
+- Optimize images for web, use responsive techniques
+- Profile picture: `src/assets/profile-picture-afiq.jpg`
+
+### Git & Project Rules
+
+- **No Cursor/Copilot rule files** detected; this document is authoritative
+- Follow existing commit patterns when creating new commits
+- Keep components focused and single-responsibility
+- Reuse existing utility functions before creating new ones
+
+## Quick Checks
+
+- [ ] Ran `bun run lint` and `bun run check` before committing
+- [ ] Used `@/` alias instead of relative paths
+- [ ] Followed Prettier formatting (no semicolons, single quotes)
+- [ ] Added/updated type definitions for new props or return values
+- [ ] Checked accessibility (aria-labels, keyboard navigation)
+- [ ] Verified dark mode compatibility
+- [ ] Tested both dev and production builds when adding features

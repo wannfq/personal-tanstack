@@ -10,8 +10,13 @@ export default defineSchema({
     country: v.optional(v.string()),
     lat: v.optional(v.number()),
     lng: v.optional(v.number()),
+    userAgent: v.optional(v.string()),
+    deviceType: v.optional(
+      v.union(v.literal('mobile'), v.literal('tablet'), v.literal('desktop')),
+    ),
   })
     .index('by_visitor_id', ['visitorId'])
     .index('by_timestamp', ['timestamp'])
-    .index('by_country', ['country']),
+    .index('by_country', ['country'])
+    .index('by_device_type', ['deviceType']),
 })

@@ -17,6 +17,10 @@ export const recordVisit = mutation({
     country: v.optional(v.string()),
     lat: v.optional(v.number()),
     lng: v.optional(v.number()),
+    userAgent: v.optional(v.string()),
+    deviceType: v.optional(
+      v.union(v.literal('mobile'), v.literal('tablet'), v.literal('desktop')),
+    ),
   },
   handler: async (ctx, args) => {
     const existingVisitor = await ctx.db
@@ -25,7 +29,7 @@ export const recordVisit = mutation({
       .first()
 
     if (!existingVisitor) {
-      // New visitor - insert with geo data
+      // New visitor - insert with geo and device data
       await ctx.db.insert('visitors', {
         visitorId: args.visitorId,
         timestamp: Date.now(),
@@ -34,16 +38,27 @@ export const recordVisit = mutation({
         country: args.country,
         lat: args.lat,
         lng: args.lng,
+        userAgent: args.userAgent,
+        deviceType: args.deviceType,
       })
-    } else if (!existingVisitor.lat && args.lat) {
-      // Existing visitor without geo data - update with geo data
-      await ctx.db.patch(existingVisitor._id, {
-        ip: args.ip,
-        city: args.city,
-        country: args.country,
-        lat: args.lat,
-        lng: args.lng,
-      })
+    } else {
+      // Existing visitor - patch missing geo and device data
+      const patchData: Record<string, unknown> = {}
+      if (!existingVisitor.lat && args.lat !== undefined) {
+        patchData.ip = args.ip
+        patchData.city = args.city
+        patchData.country = args.country
+        patchData.lat = args.lat
+        patchData.lng = args.lng
+      }
+      if (!existingVisitor.deviceType && args.deviceType !== undefined) {
+        patchData.userAgent = args.userAgent
+        patchData.deviceType = args.deviceType
+      }
+
+      if (Object.keys(patchData).length > 0) {
+        await ctx.db.patch(existingVisitor._id, patchData)
+      }
     }
   },
 })
@@ -86,5 +101,22 @@ export const getVisitorLocations = query({
     }
 
     return Array.from(locationMap.values())
+  },
+})
+
+export const getVisitorDevices = query({
+  handler: async (ctx) => {
+    const visitors = await ctx.db.query('visitors').collect()
+
+    const devices = visitors.reduce(
+      (acc, visitor) => {
+        const type = visitor.deviceType ?? 'unknown'
+        acc[type] = (acc[type] || 0) + 1
+        return acc
+      },
+      {} as Record<string, number>,
+    )
+
+    return devices
   },
 })

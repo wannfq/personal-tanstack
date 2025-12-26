@@ -6,6 +6,7 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps'
 import { useQuery } from 'convex/react'
+import { IconMap } from '@tabler/icons-react'
 import { api } from '../../convex/_generated/api'
 import { Card } from '@/components/ui/card'
 
@@ -13,42 +14,215 @@ const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
 // ISO Alpha-2 to Alpha-3 country code mapping (common countries)
 const COUNTRY_CODE_MAP: Record<string, string> = {
-  AF: 'AFG', AL: 'ALB', DZ: 'DZA', AD: 'AND', AO: 'AGO', AR: 'ARG', AM: 'ARM',
-  AU: 'AUS', AT: 'AUT', AZ: 'AZE', BS: 'BHS', BH: 'BHR', BD: 'BGD', BY: 'BLR',
-  BE: 'BEL', BZ: 'BLZ', BJ: 'BEN', BT: 'BTN', BO: 'BOL', BA: 'BIH', BW: 'BWA',
-  BR: 'BRA', BN: 'BRN', BG: 'BGR', BF: 'BFA', BI: 'BDI', KH: 'KHM', CM: 'CMR',
-  CA: 'CAN', CF: 'CAF', TD: 'TCD', CL: 'CHL', CN: 'CHN', CO: 'COL', CG: 'COG',
-  CD: 'COD', CR: 'CRI', HR: 'HRV', CU: 'CUB', CY: 'CYP', CZ: 'CZE', DK: 'DNK',
-  DJ: 'DJI', DO: 'DOM', EC: 'ECU', EG: 'EGY', SV: 'SLV', GQ: 'GNQ', ER: 'ERI',
-  EE: 'EST', ET: 'ETH', FI: 'FIN', FR: 'FRA', GA: 'GAB', GM: 'GMB', GE: 'GEO',
-  DE: 'DEU', GH: 'GHA', GR: 'GRC', GT: 'GTM', GN: 'GIN', GW: 'GNB', GY: 'GUY',
-  HT: 'HTI', HN: 'HND', HU: 'HUN', IS: 'ISL', IN: 'IND', ID: 'IDN', IR: 'IRN',
-  IQ: 'IRQ', IE: 'IRL', IL: 'ISR', IT: 'ITA', CI: 'CIV', JM: 'JAM', JP: 'JPN',
-  JO: 'JOR', KZ: 'KAZ', KE: 'KEN', KP: 'PRK', KR: 'KOR', KW: 'KWT', KG: 'KGZ',
-  LA: 'LAO', LV: 'LVA', LB: 'LBN', LS: 'LSO', LR: 'LBR', LY: 'LBY', LT: 'LTU',
-  LU: 'LUX', MK: 'MKD', MG: 'MDG', MW: 'MWI', MY: 'MYS', ML: 'MLI', MR: 'MRT',
-  MX: 'MEX', MD: 'MDA', MN: 'MNG', ME: 'MNE', MA: 'MAR', MZ: 'MOZ', MM: 'MMR',
-  NA: 'NAM', NP: 'NPL', NL: 'NLD', NZ: 'NZL', NI: 'NIC', NE: 'NER', NG: 'NGA',
-  NO: 'NOR', OM: 'OMN', PK: 'PAK', PA: 'PAN', PG: 'PNG', PY: 'PRY', PE: 'PER',
-  PH: 'PHL', PL: 'POL', PT: 'PRT', QA: 'QAT', RO: 'ROU', RU: 'RUS', RW: 'RWA',
-  SA: 'SAU', SN: 'SEN', RS: 'SRB', SL: 'SLE', SG: 'SGP', SK: 'SVK', SI: 'SVN',
-  SO: 'SOM', ZA: 'ZAF', SS: 'SSD', ES: 'ESP', LK: 'LKA', SD: 'SDN', SR: 'SUR',
-  SZ: 'SWZ', SE: 'SWE', CH: 'CHE', SY: 'SYR', TW: 'TWN', TJ: 'TJK', TZ: 'TZA',
-  TH: 'THA', TL: 'TLS', TG: 'TGO', TN: 'TUN', TR: 'TUR', TM: 'TKM', UG: 'UGA',
-  UA: 'UKR', AE: 'ARE', GB: 'GBR', US: 'USA', UY: 'URY', UZ: 'UZB', VE: 'VEN',
-  VN: 'VNM', YE: 'YEM', ZM: 'ZMB', ZW: 'ZWE', HK: 'HKG', MO: 'MAC',
+  AF: 'AFG',
+  AL: 'ALB',
+  DZ: 'DZA',
+  AD: 'AND',
+  AO: 'AGO',
+  AR: 'ARG',
+  AM: 'ARM',
+  AU: 'AUS',
+  AT: 'AUT',
+  AZ: 'AZE',
+  BS: 'BHS',
+  BH: 'BHR',
+  BD: 'BGD',
+  BY: 'BLR',
+  BE: 'BEL',
+  BZ: 'BLZ',
+  BJ: 'BEN',
+  BT: 'BTN',
+  BO: 'BOL',
+  BA: 'BIH',
+  BW: 'BWA',
+  BR: 'BRA',
+  BN: 'BRN',
+  BG: 'BGR',
+  BF: 'BFA',
+  BI: 'BDI',
+  KH: 'KHM',
+  CM: 'CMR',
+  CA: 'CAN',
+  CF: 'CAF',
+  TD: 'TCD',
+  CL: 'CHL',
+  CN: 'CHN',
+  CO: 'COL',
+  CG: 'COG',
+  CD: 'COD',
+  CR: 'CRI',
+  HR: 'HRV',
+  CU: 'CUB',
+  CY: 'CYP',
+  CZ: 'CZE',
+  DK: 'DNK',
+  DJ: 'DJI',
+  DO: 'DOM',
+  EC: 'ECU',
+  EG: 'EGY',
+  SV: 'SLV',
+  GQ: 'GNQ',
+  ER: 'ERI',
+  EE: 'EST',
+  ET: 'ETH',
+  FI: 'FIN',
+  FR: 'FRA',
+  GA: 'GAB',
+  GM: 'GMB',
+  GE: 'GEO',
+  DE: 'DEU',
+  GH: 'GHA',
+  GR: 'GRC',
+  GT: 'GTM',
+  GN: 'GIN',
+  GW: 'GNB',
+  GY: 'GUY',
+  HT: 'HTI',
+  HN: 'HND',
+  HU: 'HUN',
+  IS: 'ISL',
+  IN: 'IND',
+  ID: 'IDN',
+  IR: 'IRN',
+  IQ: 'IRQ',
+  IE: 'IRL',
+  IL: 'ISR',
+  IT: 'ITA',
+  CI: 'CIV',
+  JM: 'JAM',
+  JP: 'JPN',
+  JO: 'JOR',
+  KZ: 'KAZ',
+  KE: 'KEN',
+  KP: 'PRK',
+  KR: 'KOR',
+  KW: 'KWT',
+  KG: 'KGZ',
+  LA: 'LAO',
+  LV: 'LVA',
+  LB: 'LBN',
+  LS: 'LSO',
+  LR: 'LBR',
+  LY: 'LBY',
+  LT: 'LTU',
+  LU: 'LUX',
+  MK: 'MKD',
+  MG: 'MDG',
+  MW: 'MWI',
+  MY: 'MYS',
+  ML: 'MLI',
+  MR: 'MRT',
+  MX: 'MEX',
+  MD: 'MDA',
+  MN: 'MNG',
+  ME: 'MNE',
+  MA: 'MAR',
+  MZ: 'MOZ',
+  MM: 'MMR',
+  NA: 'NAM',
+  NP: 'NPL',
+  NL: 'NLD',
+  NZ: 'NZL',
+  NI: 'NIC',
+  NE: 'NER',
+  NG: 'NGA',
+  NO: 'NOR',
+  OM: 'OMN',
+  PK: 'PAK',
+  PA: 'PAN',
+  PG: 'PNG',
+  PY: 'PRY',
+  PE: 'PER',
+  PH: 'PHL',
+  PL: 'POL',
+  PT: 'PRT',
+  QA: 'QAT',
+  RO: 'ROU',
+  RU: 'RUS',
+  RW: 'RWA',
+  SA: 'SAU',
+  SN: 'SEN',
+  RS: 'SRB',
+  SL: 'SLE',
+  SG: 'SGP',
+  SK: 'SVK',
+  SI: 'SVN',
+  SO: 'SOM',
+  ZA: 'ZAF',
+  SS: 'SSD',
+  ES: 'ESP',
+  LK: 'LKA',
+  SD: 'SDN',
+  SR: 'SUR',
+  SZ: 'SWZ',
+  SE: 'SWE',
+  CH: 'CHE',
+  SY: 'SYR',
+  TW: 'TWN',
+  TJ: 'TJK',
+  TZ: 'TZA',
+  TH: 'THA',
+  TL: 'TLS',
+  TG: 'TGO',
+  TN: 'TUN',
+  TR: 'TUR',
+  TM: 'TKM',
+  UG: 'UGA',
+  UA: 'UKR',
+  AE: 'ARE',
+  GB: 'GBR',
+  US: 'USA',
+  UY: 'URY',
+  UZ: 'UZB',
+  VE: 'VEN',
+  VN: 'VNM',
+  YE: 'YEM',
+  ZM: 'ZMB',
+  ZW: 'ZWE',
+  HK: 'HKG',
+  MO: 'MAC',
 }
 
 // Country names mapping for tooltip display
 const COUNTRY_NAMES: Record<string, string> = {
-  MY: 'Malaysia', SG: 'Singapore', US: 'United States', GB: 'United Kingdom',
-  IN: 'India', CN: 'China', JP: 'Japan', KR: 'South Korea', AU: 'Australia',
-  DE: 'Germany', FR: 'France', IT: 'Italy', ES: 'Spain', NL: 'Netherlands',
-  CA: 'Canada', BR: 'Brazil', MX: 'Mexico', ID: 'Indonesia', TH: 'Thailand',
-  VN: 'Vietnam', PH: 'Philippines', PK: 'Pakistan', BD: 'Bangladesh',
-  RU: 'Russia', UA: 'Ukraine', PL: 'Poland', TR: 'Turkey', SA: 'Saudi Arabia',
-  AE: 'UAE', EG: 'Egypt', ZA: 'South Africa', NG: 'Nigeria', KE: 'Kenya',
-  AR: 'Argentina', CL: 'Chile', CO: 'Colombia', PE: 'Peru', HK: 'Hong Kong',
+  MY: 'Malaysia',
+  SG: 'Singapore',
+  US: 'United States',
+  GB: 'United Kingdom',
+  IN: 'India',
+  CN: 'China',
+  JP: 'Japan',
+  KR: 'South Korea',
+  AU: 'Australia',
+  DE: 'Germany',
+  FR: 'France',
+  IT: 'Italy',
+  ES: 'Spain',
+  NL: 'Netherlands',
+  CA: 'Canada',
+  BR: 'Brazil',
+  MX: 'Mexico',
+  ID: 'Indonesia',
+  TH: 'Thailand',
+  VN: 'Vietnam',
+  PH: 'Philippines',
+  PK: 'Pakistan',
+  BD: 'Bangladesh',
+  RU: 'Russia',
+  UA: 'Ukraine',
+  PL: 'Poland',
+  TR: 'Turkey',
+  SA: 'Saudi Arabia',
+  AE: 'UAE',
+  EG: 'Egypt',
+  ZA: 'South Africa',
+  NG: 'Nigeria',
+  KE: 'Kenya',
+  AR: 'Argentina',
+  CL: 'Chile',
+  CO: 'Colombia',
+  PE: 'Peru',
+  HK: 'Hong Kong',
 }
 
 interface TooltipData {
@@ -83,14 +257,45 @@ export function VisitorMap() {
 
 // Numeric ISO code to Alpha-2 mapping
 const NUMERIC_TO_ALPHA2: Record<string, string> = {
-  '458': 'MY', '702': 'SG', '840': 'US', '826': 'GB', '356': 'IN',
-  '156': 'CN', '392': 'JP', '410': 'KR', '036': 'AU', '276': 'DE',
-  '250': 'FR', '380': 'IT', '724': 'ES', '528': 'NL', '124': 'CA',
-  '076': 'BR', '484': 'MX', '360': 'ID', '764': 'TH', '704': 'VN',
-  '608': 'PH', '586': 'PK', '050': 'BD', '643': 'RU', '804': 'UA',
-  '616': 'PL', '792': 'TR', '682': 'SA', '784': 'AE', '818': 'EG',
-  '710': 'ZA', '566': 'NG', '404': 'KE', '032': 'AR', '152': 'CL',
-  '170': 'CO', '604': 'PE', '344': 'HK', '446': 'MO',
+  '458': 'MY',
+  '702': 'SG',
+  '840': 'US',
+  '826': 'GB',
+  '356': 'IN',
+  '156': 'CN',
+  '392': 'JP',
+  '410': 'KR',
+  '036': 'AU',
+  '276': 'DE',
+  '250': 'FR',
+  '380': 'IT',
+  '724': 'ES',
+  '528': 'NL',
+  '124': 'CA',
+  '076': 'BR',
+  '484': 'MX',
+  '360': 'ID',
+  '764': 'TH',
+  '704': 'VN',
+  '608': 'PH',
+  '586': 'PK',
+  '050': 'BD',
+  '643': 'RU',
+  '804': 'UA',
+  '616': 'PL',
+  '792': 'TR',
+  '682': 'SA',
+  '784': 'AE',
+  '818': 'EG',
+  '710': 'ZA',
+  '566': 'NG',
+  '404': 'KE',
+  '032': 'AR',
+  '152': 'CL',
+  '170': 'CO',
+  '604': 'PE',
+  '344': 'HK',
+  '446': 'MO',
 }
 
 function VisitorMapClient() {
@@ -143,9 +348,13 @@ function VisitorMapClient() {
 
   // Aggregate visitors by country
   const countryData = useMemo(() => {
-    if (!locations) return new Map<string, { count: number; cities: Array<string> }>()
+    if (!locations)
+      return new Map<string, { count: number; cities: Array<string> }>()
 
-    const countryMap = new Map<string, { count: number; cities: Array<string> }>()
+    const countryMap = new Map<
+      string,
+      { count: number; cities: Array<string> }
+    >()
 
     for (const loc of locations) {
       const existing = countryMap.get(loc.country)
@@ -178,7 +387,7 @@ function VisitorMapClient() {
     if (code.length === 2 && COUNTRY_CODE_MAP[code]) return code
     // Alpha-3 to Alpha-2
     const fromAlpha3 = Object.entries(COUNTRY_CODE_MAP).find(
-      ([, alpha3]) => alpha3 === code
+      ([, alpha3]) => alpha3 === code,
     )?.[0]
     if (fromAlpha3) return fromAlpha3
     // Numeric to Alpha-2
@@ -259,7 +468,13 @@ function VisitorMapClient() {
 
   return (
     <Card className="relative p-6">
-      <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
+      <div className="flex flex-row items-center justify-between space-y-0">
+        <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
+        <IconMap className="size-4 text-muted-foreground" />
+      </div>
+      <p className="max-w-2xl text-muted-foreground">
+        Real-time visitor tracking and geographic distribution of site visitors.
+      </p>
 
       <div className="relative h-[400px] w-full overflow-hidden rounded-lg bg-background/50">
         <ComposableMap
@@ -306,7 +521,9 @@ function VisitorMapClient() {
                       onMouseEnter={(e) => {
                         const info = getCountryInfo(countryCode)
                         if (info) {
-                          const rect = (e.target as SVGElement).getBoundingClientRect()
+                          const rect = (
+                            e.target as SVGElement
+                          ).getBoundingClientRect()
                           setTooltip({
                             ...info,
                             x: rect.left + rect.width / 2,
@@ -334,14 +551,17 @@ function VisitorMapClient() {
             transform: 'translate(-50%, -100%)',
           }}
         >
-          <p className="font-medium text-popover-foreground">{tooltip.country}</p>
+          <p className="font-medium text-popover-foreground">
+            {tooltip.country}
+          </p>
           <p className="text-xs text-muted-foreground">
             {tooltip.count} {tooltip.count === 1 ? 'visitor' : 'visitors'}
           </p>
           {tooltip.cities.length > 0 && (
             <p className="mt-1 text-xs text-muted-foreground">
               Cities: {tooltip.cities.slice(0, 3).join(', ')}
-              {tooltip.cities.length > 3 && ` +${tooltip.cities.length - 3} more`}
+              {tooltip.cities.length > 3 &&
+                ` +${tooltip.cities.length - 3} more`}
             </p>
           )}
         </div>
@@ -351,7 +571,9 @@ function VisitorMapClient() {
       <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
           <span>
-            <span className="font-medium text-foreground">{uniqueCountries}</span>{' '}
+            <span className="font-medium text-foreground">
+              {uniqueCountries}
+            </span>{' '}
             {uniqueCountries === 1 ? 'country' : 'countries'}
           </span>
           <span>
@@ -364,10 +586,22 @@ function VisitorMapClient() {
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span>Less</span>
           <div className="flex h-3 overflow-hidden rounded">
-            <div className="w-4" style={{ backgroundColor: getColorWithOpacity(0.5) }} />
-            <div className="w-4" style={{ backgroundColor: getColorWithOpacity(0.65) }} />
-            <div className="w-4" style={{ backgroundColor: getColorWithOpacity(0.8) }} />
-            <div className="w-4" style={{ backgroundColor: getColorWithOpacity(1) }} />
+            <div
+              className="w-4"
+              style={{ backgroundColor: getColorWithOpacity(0.5) }}
+            />
+            <div
+              className="w-4"
+              style={{ backgroundColor: getColorWithOpacity(0.65) }}
+            />
+            <div
+              className="w-4"
+              style={{ backgroundColor: getColorWithOpacity(0.8) }}
+            />
+            <div
+              className="w-4"
+              style={{ backgroundColor: getColorWithOpacity(1) }}
+            />
           </div>
           <span>More</span>
         </div>

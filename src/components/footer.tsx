@@ -19,4 +19,3 @@ export function Footer() {
     </footer>
   )
 }
-

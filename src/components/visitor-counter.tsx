@@ -1,10 +1,12 @@
 import { useMutation, useQuery } from 'convex/react'
 import { useEffect, useState } from 'react'
 import { api } from '../../convex/_generated/api'
-import type { VisitorGeoData } from '@/lib/visitor';
-import {  getVisitorGeoData } from '@/lib/visitor'
+import type { VisitorData } from '@/lib/visitor'
+import { getVisitorData } from '@/lib/visitor'
 
-const fallbackContent = <div className="text-sm text-muted-foreground">Thank you for visiting!</div>
+const fallbackContent = (
+  <div className="text-sm text-muted-foreground">Thank you for visiting!</div>
+)
 
 export function VisitorCounter() {
   const [isMounted, setIsMounted] = useState(false)
@@ -22,8 +24,8 @@ export function VisitorCounter() {
 
 function VisitorCounterClient() {
   const [visitorId, setVisitorId] = useState<string | null>(null)
-  const [geoData, setGeoData] = useState<VisitorGeoData | null>(null)
-  const [geoFetched, setGeoFetched] = useState(false)
+  const [visitorData, setVisitorData] = useState<VisitorData | null>(null)
+  const [dataFetched, setDataFetched] = useState(false)
   const recordVisit = useMutation(api.visitors.recordVisit)
   const visitorCount = useQuery(api.visitors.getVisitorCount)
 
@@ -35,33 +37,35 @@ function VisitorCounterClient() {
     setVisitorId(id)
   }, [])
 
-  // Fetch geo data from server function
+  // Fetch visitor data from server function
   useEffect(() => {
-    if (geoFetched) return
+    if (dataFetched) return
 
-    getVisitorGeoData()
+    getVisitorData()
       .then((data) => {
-        setGeoData(data)
-        setGeoFetched(true)
+        setVisitorData(data)
+        setDataFetched(true)
       })
       .catch(() => {
-        setGeoFetched(true)
+        setDataFetched(true)
       })
-  }, [geoFetched])
+  }, [dataFetched])
 
-  // Record visit once we have both visitor ID and geo data (or geo fetch completed)
+  // Record visit once we have both visitor ID and visitor data (or data fetch completed)
   useEffect(() => {
-    if (visitorId && geoFetched) {
+    if (visitorId && dataFetched) {
       recordVisit({
         visitorId,
-        ip: geoData?.ip ?? undefined,
-        city: geoData?.city ?? undefined,
-        country: geoData?.country ?? undefined,
-        lat: geoData?.lat ?? undefined,
-        lng: geoData?.lng ?? undefined,
+        ip: visitorData?.ip ?? undefined,
+        city: visitorData?.city ?? undefined,
+        country: visitorData?.country ?? undefined,
+        lat: visitorData?.lat ?? undefined,
+        lng: visitorData?.lng ?? undefined,
+        userAgent: visitorData?.userAgent ?? undefined,
+        deviceType: visitorData?.deviceType ?? undefined,
       })
     }
-  }, [visitorId, geoFetched, geoData, recordVisit])
+  }, [visitorId, dataFetched, visitorData, recordVisit])
 
   if (visitorCount === undefined) {
     return fallbackContent

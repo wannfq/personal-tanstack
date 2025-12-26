@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'convex/react'
-import { IconChartBar, IconFlag, IconUsers } from '@tabler/icons-react'
+import { IconChartBar, IconDevices, IconPin, IconUsers } from '@tabler/icons-react'
 
 import { api } from '../../convex/_generated/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -32,10 +32,7 @@ function AnalyticsPage() {
 function AnalyticsContent() {
   const visitorCount = useQuery(api.visitors.getVisitorCount)
   const locations = useQuery(api.visitors.getVisitorLocations)
-
-  const topCountries = locations
-    ? [...new Set(locations.map((l) => l.country))].length
-    : 0
+  const devices = useQuery(api.visitors.getVisitorDevices)
 
   return (
     <div className="bg-background text-foreground">
@@ -49,46 +46,25 @@ function AnalyticsContent() {
           <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
             Visitor Analytics
           </h1>
-          <p className="max-w-2xl text-muted-foreground">
-            Real-time visitor tracking and geographic distribution of site
-            visitors.
-          </p>
         </header>
 
         {/* Stats Cards */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Card className="border-dashed">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Total Visitors
-              </CardTitle>
-              <IconUsers className="size-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">
-                {visitorCount?.toLocaleString() ?? '—'}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Unique visitors tracked
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-dashed">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                Countries
-              </CardTitle>
-              <IconFlag className="size-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold">{topCountries}</div>
-              <p className="text-xs text-muted-foreground">
-                Countries represented
-              </p>
-            </CardContent>
-          </Card>
-        </div>
+        <Card className="border-dashed">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-lg font-semibold">
+              Total Visitors
+            </CardTitle>
+            <IconUsers className="size-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">
+              {visitorCount?.toLocaleString() ?? '—'}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Unique visitors count
+            </p>
+          </CardContent>
+        </Card>
 
         {/* Visitor Map */}
         <VisitorMap />
@@ -96,25 +72,23 @@ function AnalyticsContent() {
         {/* Top Locations Table */}
         {locations && locations.length > 0 && (
           <Card className="border-dashed">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="text-lg font-semibold">
                 Top Visitor Locations
               </CardTitle>
+              <IconPin className="size-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {locations
                   .sort((a, b) => b.count - a.count)
-                  .slice(0, 10)
-                  .map((location, index) => (
+                  .slice(0, 5)
+                  .map((location) => (
                     <div
                       key={`${location.city}-${location.country}`}
                       className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 px-4 py-3"
                     >
                       <div className="flex items-center gap-3">
-                        <span className="flex size-6 items-center justify-center rounded-full bg-primary/10 text-xs font-medium text-primary">
-                          {index + 1}
-                        </span>
                         <div>
                           <p className="font-medium">{location.city}</p>
                           <p className="text-xs text-muted-foreground">
@@ -134,8 +108,46 @@ function AnalyticsContent() {
             </CardContent>
           </Card>
         )}
+
+        {/* Top Devices Table */}
+        {devices && Object.keys(devices).length > 0 && (
+          <Card className="border-dashed">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+              <CardTitle className="text-lg font-semibold">
+                Top Visitor Devices
+              </CardTitle>
+              <IconDevices className="size-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {Object.entries(devices)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([device, count]) => (
+                    <div
+                      key={device}
+                      className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 px-4 py-3"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div>
+                          <p className="capitalize font-medium">{device}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Device Type
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">{count}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {count === 1 ? 'visitor' : 'visitors'}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </main>
     </div>
   )
 }
-
