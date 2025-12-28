@@ -4,7 +4,7 @@ import {
   IconAt,
   IconBrandGithub,
   IconBrandLinkedin,
-  IconMail,
+  IconBrandX,
   IconMapPin,
   IconPalette,
   IconRocket,
@@ -95,11 +95,6 @@ const experiences = [
 
 const contactLinks = [
   {
-    label: 'Email',
-    icon: IconMail,
-    href: 'mailto:wannfq@gmail.com',
-  },
-  {
     label: 'LinkedIn',
     icon: IconBrandLinkedin,
     href: 'https://www.linkedin.com/in/wannfq',
@@ -108,6 +103,11 @@ const contactLinks = [
     label: 'GitHub',
     icon: IconBrandGithub,
     href: 'https://github.com/wannfq',
+  },
+  {
+    label: 'X',
+    icon: IconBrandX,
+    href: 'https://x.com/thewanafiq',
   },
 ]
 
@@ -419,10 +419,9 @@ function ContactSection() {
       <Card className="border-dashed">
         <CardContent className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
-            <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground/80">
+            <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground/80 pb-4">
               Let's have a talk
             </p>
-            <h3 className="text-2xl font-semibold">wannfq@gmail.com</h3>
             <p className="text-sm text-muted-foreground">
               Happy to chat about platform engineering, resilient architectures,
               developer tooling, or the next frontier in AI technology.
