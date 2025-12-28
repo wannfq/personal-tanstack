@@ -1,11 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'convex/react'
-import { IconChartBar, IconDevices, IconPin, IconUsers } from '@tabler/icons-react'
+import {
+  IconChartBar,
+  IconDevices,
+  IconPin,
+  IconUsers,
+} from '@tabler/icons-react'
 
 import { api } from '../../convex/_generated/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { VisitorMap } from '@/components/visitor-map'
+import { getReferrerIcon, getReferrerName } from '@/lib/visitor-referrer'
 
 export const Route = createFileRoute('/analytics')({
   component: AnalyticsPage,
@@ -33,6 +39,7 @@ function AnalyticsContent() {
   const visitorCount = useQuery(api.visitors.getVisitorCount)
   const locations = useQuery(api.visitors.getVisitorLocations)
   const devices = useQuery(api.visitors.getVisitorDevices)
+  const referrals = useQuery(api.visitors.getVisitorReferrals)
 
   return (
     <div className="bg-background text-foreground">
@@ -143,6 +150,49 @@ function AnalyticsContent() {
                       </div>
                     </div>
                   ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Top Traffic Sources Table */}
+        {referrals && referrals.length > 0 && (
+          <Card className="border-dashed">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0">
+              <CardTitle className="text-lg font-semibold">
+                Top Traffic Sources
+              </CardTitle>
+              <IconUsers className="size-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {referrals.slice(0, 10).map(({ referrer, count }) => {
+                  const Icon = getReferrerIcon(referrer)
+                  const name = getReferrerName(referrer)
+
+                  return (
+                    <div
+                      key={referrer ?? 'direct'}
+                      className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 px-4 py-3"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className="size-5 text-muted-foreground" />
+                        <div>
+                          <p className="font-medium">{name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            Traffic Source
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold">{count}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {count === 1 ? 'visitor' : 'visitors'}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
             </CardContent>
           </Card>

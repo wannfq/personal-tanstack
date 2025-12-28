@@ -63,6 +63,7 @@ function VisitorCounterClient() {
         lng: visitorData?.lng ?? undefined,
         userAgent: visitorData?.userAgent ?? undefined,
         deviceType: visitorData?.deviceType ?? undefined,
+        referrer: visitorData?.referrer ?? undefined,
       })
     }
   }, [visitorId, dataFetched, visitorData, recordVisit])

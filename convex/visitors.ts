@@ -21,6 +21,7 @@ export const recordVisit = mutation({
     deviceType: v.optional(
       v.union(v.literal('mobile'), v.literal('tablet'), v.literal('desktop')),
     ),
+    referrer: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const existingVisitor = await ctx.db
@@ -40,6 +41,7 @@ export const recordVisit = mutation({
         lng: args.lng,
         userAgent: args.userAgent,
         deviceType: args.deviceType,
+        referrer: args.referrer,
       })
     } else {
       // Existing visitor - patch missing geo and device data
@@ -118,5 +120,26 @@ export const getVisitorDevices = query({
     )
 
     return devices
+  },
+})
+
+export const getVisitorReferrals = query({
+  handler: async (ctx) => {
+    const visitors = await ctx.db.query('visitors').collect()
+    const referrals = new Map<string | null, number>()
+
+    visitors.forEach((visitor) => {
+      if (visitor.referrer) {
+        const count = referrals.get(visitor.referrer) || 0
+        referrals.set(visitor.referrer, count + 1)
+      } else {
+        const count = referrals.get(null) || 0
+        referrals.set(null, count + 1)
+      }
+    })
+
+    return Array.from(referrals.entries())
+      .map(([referrer, count]) => ({ referrer, count }))
+      .sort((a, b) => b.count - a.count)
   },
 })

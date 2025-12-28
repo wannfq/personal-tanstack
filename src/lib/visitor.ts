@@ -16,6 +16,7 @@ export interface VisitorData {
   lng: number | null
   deviceType: 'mobile' | 'tablet' | 'desktop' | null
   userAgent: string | null
+  referrer: string | null
 }
 
 /**
@@ -37,6 +38,45 @@ export const getVisitorData = createServerFn({ method: 'GET' }).handler(
 
       // Get user-agent from request headers
       const userAgent = request.headers.get('user-agent') || null
+
+      // Extract referrer from Referer header
+      let referrer = null
+      const referrerHeader = request.headers.get('Referer')
+      const hostHeader = request.headers.get('host')
+
+      // Skip debug logs for internal requests
+      const isInternalRequest =
+        referrerHeader &&
+        hostHeader &&
+        new URL(referrerHeader).hostname ===
+          new URL(`http://${hostHeader}`).hostname
+
+      if (!isInternalRequest && referrerHeader) {
+        console.log('🔍 Debug - Referer header:', referrerHeader)
+        console.log('🔍 Debug - Host header:', hostHeader)
+        console.log(
+          '🔍 Debug - sec-fetch-site:',
+          request.headers.get('sec-fetch-site'),
+        )
+      }
+
+      if (referrerHeader) {
+        try {
+          const referrerUrl = new URL(referrerHeader)
+          referrer = referrerUrl.hostname
+          if (!isInternalRequest) {
+            console.log('✅ Extracted referrer hostname:', referrer)
+          }
+        } catch {
+          if (!isInternalRequest) {
+            console.log('❌ Invalid referrer URL:', referrerHeader)
+          }
+        }
+      } else {
+        if (!isInternalRequest) {
+          console.log('ℹ️ No Referer header found')
+        }
+      }
 
       // Fallback for local development: detect public IP via ipinfo.io
       if (!ip) {
@@ -89,6 +129,7 @@ export const getVisitorData = createServerFn({ method: 'GET' }).handler(
           lng: null,
           deviceType,
           userAgent,
+          referrer,
         }
       }
 
@@ -112,6 +153,7 @@ export const getVisitorData = createServerFn({ method: 'GET' }).handler(
         lng,
         deviceType,
         userAgent,
+        referrer,
       }
     } catch (error) {
       console.error('Failed to get visitor data:', error)

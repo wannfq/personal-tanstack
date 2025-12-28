@@ -14,9 +14,11 @@ export default defineSchema({
     deviceType: v.optional(
       v.union(v.literal('mobile'), v.literal('tablet'), v.literal('desktop')),
     ),
+    referrer: v.optional(v.string()),
   })
     .index('by_visitor_id', ['visitorId'])
     .index('by_timestamp', ['timestamp'])
     .index('by_country', ['country'])
-    .index('by_device_type', ['deviceType']),
+    .index('by_device_type', ['deviceType'])
+    .index('by_referrer', ['referrer']),
 })
