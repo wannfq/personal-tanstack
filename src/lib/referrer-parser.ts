@@ -6,6 +6,7 @@ import {
   IconBrandReddit,
   IconBrandStackoverflow,
   IconBrandTwitter,
+  IconBrandX,
   IconBrandYoutube,
   IconGlobe,
 } from '@tabler/icons-react'
@@ -50,6 +51,11 @@ export const REFERRER_BRANDS: Array<ReferrerBrand> = [
     domains: ['youtube.com', 'youtu.be'],
   },
   {
+    name: 'X',
+    icon: IconBrandX,
+    domains: ['twitter.com', 'x.com', 't.co'],
+  },
+  {
     name: 'Reddit',
     icon: IconBrandReddit,
     domains: ['reddit.com', 'redd.it'],
@@ -80,7 +86,7 @@ export function getReferrerIcon(domain: string | null) {
 export function getReferrerName(domain: string | null): string {
   const brand = getReferrerBrand(domain)
   if (brand) {
-    return brand.name
+    return `brand.name (${domain})`
   }
   if (!domain) {
     return 'Unknown'
