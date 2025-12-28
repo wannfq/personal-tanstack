@@ -86,7 +86,7 @@ export function getReferrerIcon(domain: string | null) {
 export function getReferrerName(domain: string | null): string {
   const brand = getReferrerBrand(domain)
   if (brand) {
-    return `brand.name (${domain})`
+    return `${brand.name} (${domain})`
   }
   if (!domain) {
     return 'Unknown'
