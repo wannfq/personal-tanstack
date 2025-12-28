@@ -25,6 +25,7 @@ export function VisitorCounter() {
 function VisitorCounterClient() {
   const [visitorId, setVisitorId] = useState<string | null>(null)
   const [visitorData, setVisitorData] = useState<VisitorData | null>(null)
+  const [referrerHostname, setReferrerHostname] = useState<string | null>(null)
   const [dataFetched, setDataFetched] = useState(false)
   const recordVisit = useMutation(api.visitors.recordVisit)
   const visitorCount = useQuery(api.visitors.getVisitorCount)
@@ -37,16 +38,28 @@ function VisitorCounterClient() {
     setVisitorId(id)
   }, [])
 
+  // Extract referrer hostname from document.referrer
+  useEffect(() => {
+    const documentReferrer = document.referrer || null
+
+    if (!documentReferrer) {
+      setReferrerHostname(null)
+      return
+    }
+
+    try {
+      const url = new URL(documentReferrer)
+      setReferrerHostname(url.hostname)
+    } catch {
+      setReferrerHostname(null)
+    }
+  }, [])
+
   // Fetch visitor data from server function
   useEffect(() => {
     if (dataFetched) return
 
-    const documentReferrer = document.referrer || null
-    console.log('🌐 Client - document.referrer:', documentReferrer)
-
-    getVisitorData({
-      referrer: documentReferrer,
-    })
+    getVisitorData()
       .then((data: VisitorData | null) => {
         setVisitorData(data)
         setDataFetched(true)
@@ -68,10 +81,10 @@ function VisitorCounterClient() {
         lng: visitorData?.lng ?? undefined,
         userAgent: visitorData?.userAgent ?? undefined,
         deviceType: visitorData?.deviceType ?? undefined,
-        referrer: visitorData?.referrer ?? undefined,
+        referrer: referrerHostname ?? undefined,
       })
     }
-  }, [visitorId, dataFetched, visitorData, recordVisit])
+  }, [visitorId, dataFetched, visitorData, referrerHostname, recordVisit])
 
   if (visitorCount === undefined) {
     return fallbackContent

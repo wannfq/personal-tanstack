@@ -7,7 +7,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { UAParser } from 'ua-parser-js'
-import { z } from 'zod'
 
 export interface VisitorData {
   ip: string
@@ -49,25 +48,6 @@ async function extractIP(headers: Headers): Promise<string | null> {
 
 function extractUserAgent(headers: Headers): string | null {
   return headers.get('user-agent') || null
-}
-
-function extractReferrerHostname(referrer: string | null): string | null {
-  console.log('🔍 Debug - Received referrer:', referrer)
-
-  if (!referrer) {
-    console.log('⚠️ No referrer provided')
-    return null
-  }
-
-  try {
-    const referrerUrl = new URL(referrer)
-    const hostname = referrerUrl.hostname
-    console.log('✅ Extracted hostname:', hostname)
-    return hostname
-  } catch (error) {
-    console.log('❌ Failed to parse referrer URL:', error)
-    return null
-  }
 }
 
 function detectDeviceType(
@@ -124,24 +104,18 @@ async function fetchGeoLocation(ip: string): Promise<GeoData | null> {
   }
 }
 
-const InputSchema = z.object({
-  referrer: z.string().nullable().optional(),
-})
-
 /**
  * Get visitor's IP address, geographic location, and device type
  * Reads IP and user-agent from request headers
  * Calls ipinfo.io for geo resolution and ua-parser-js for device detection
  */
-export const getVisitorData = createServerFn({ method: 'GET' })
-  .validator(InputSchema)
-  .handler(async ({ data }): Promise<VisitorData | null> => {
+export const getVisitorData = createServerFn({ method: 'GET' }).handler(
+  async (): Promise<VisitorData | null> => {
     try {
       const request = getRequest()
       const headers = request.headers
 
       const userAgent = extractUserAgent(headers)
-      const referrerHostname = extractReferrerHostname(data?.referrer || null)
       const ip = await extractIP(headers)
 
       if (!ip) {
@@ -162,10 +136,11 @@ export const getVisitorData = createServerFn({ method: 'GET' })
         lng,
         deviceType,
         userAgent,
-        referrer: referrerHostname,
+        referrer: null,
       }
     } catch (error) {
       console.error('Failed to get visitor data:', error)
       return null
     }
-  })
+  },
+)
