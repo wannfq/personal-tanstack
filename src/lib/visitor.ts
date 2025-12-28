@@ -7,6 +7,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { UAParser } from 'ua-parser-js'
+import { z } from 'zod'
 
 export interface VisitorData {
   ip: string
@@ -51,14 +52,20 @@ function extractUserAgent(headers: Headers): string | null {
 }
 
 function extractReferrerHostname(referrer: string | null): string | null {
+  console.log('🔍 Debug - Received referrer:', referrer)
+
   if (!referrer) {
+    console.log('⚠️ No referrer provided')
     return null
   }
 
   try {
     const referrerUrl = new URL(referrer)
-    return referrerUrl.hostname
-  } catch {
+    const hostname = referrerUrl.hostname
+    console.log('✅ Extracted hostname:', hostname)
+    return hostname
+  } catch (error) {
+    console.log('❌ Failed to parse referrer URL:', error)
     return null
   }
 }
@@ -117,22 +124,24 @@ async function fetchGeoLocation(ip: string): Promise<GeoData | null> {
   }
 }
 
+const InputSchema = z.object({
+  referrer: z.string().nullable().optional(),
+})
+
 /**
  * Get visitor's IP address, geographic location, and device type
  * Reads IP and user-agent from request headers
  * Calls ipinfo.io for geo resolution and ua-parser-js for device detection
  */
 export const getVisitorData = createServerFn({ method: 'GET' })
-  .inputValidator((data: { referrer?: string | null } | undefined) => ({
-    referrer: data?.referrer ?? null,
-  }))
-  .handler(async ({ referrer }): Promise<VisitorData | null> => {
+  .validator(InputSchema)
+  .handler(async ({ data }): Promise<VisitorData | null> => {
     try {
       const request = getRequest()
       const headers = request.headers
 
       const userAgent = extractUserAgent(headers)
-      const referrerHostname = extractReferrerHostname(referrer)
+      const referrerHostname = extractReferrerHostname(data?.referrer || null)
       const ip = await extractIP(headers)
 
       if (!ip) {

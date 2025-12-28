@@ -42,13 +42,12 @@ function VisitorCounterClient() {
     if (dataFetched) return
 
     const documentReferrer = document.referrer || null
+    console.log('🌐 Client - document.referrer:', documentReferrer)
 
     getVisitorData({
-      data: {
-        referrer: documentReferrer,
-      },
+      referrer: documentReferrer,
     })
-      .then((data) => {
+      .then((data: VisitorData | null) => {
         setVisitorData(data)
         setDataFetched(true)
       })
