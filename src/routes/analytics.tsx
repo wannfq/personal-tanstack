@@ -11,7 +11,7 @@ import {
 import { api } from '../../convex/_generated/api'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { VisitorMap } from '@/components/visitor-map'
-import { getReferrerIcon, getReferrerName } from '@/lib/visitor-referrer'
+import { getReferrerIcon, getReferrerName } from '@/lib/referrer-parser'
 
 export const Route = createFileRoute('/analytics')({
   component: AnalyticsPage,

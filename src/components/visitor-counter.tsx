@@ -41,7 +41,13 @@ function VisitorCounterClient() {
   useEffect(() => {
     if (dataFetched) return
 
-    getVisitorData()
+    const documentReferrer = document.referrer || null
+
+    getVisitorData({
+      data: {
+        referrer: documentReferrer,
+      },
+    })
       .then((data) => {
         setVisitorData(data)
         setDataFetched(true)
