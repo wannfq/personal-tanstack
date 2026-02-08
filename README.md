@@ -1,5 +1,7 @@
 # Personal TanStack
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4e126e98-39f8-4549-91e5-0641bb47fc47/deploy-status)](https://app.netlify.com/projects/wanafiq/deploys)
+
 A personal website built with TanStack Start + React, featuring real-time visitor analytics, geographic tracking, and a modern dark-themed UI using shadcn/ui components and Tailwind CSS.
 
 ## Tech Stack

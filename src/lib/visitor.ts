@@ -7,6 +7,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequest } from '@tanstack/react-start/server'
 import { UAParser } from 'ua-parser-js'
+import { logRuntimeInfo } from './runtime'
 
 export interface VisitorData {
   ip: string
@@ -112,6 +113,9 @@ async function fetchGeoLocation(ip: string): Promise<GeoData | null> {
 export const getVisitorData = createServerFn({ method: 'GET' }).handler(
   async (): Promise<VisitorData | null> => {
     try {
+      // Log runtime info for debugging
+      logRuntimeInfo()
+
       const request = getRequest()
       const headers = request.headers
 
