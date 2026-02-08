@@ -4,6 +4,3 @@
 
 [build.environment]
   NETLIFY_BUN_VERSION = "1.3.8"
-
-[functions]
-  node_bundler = "bun"
