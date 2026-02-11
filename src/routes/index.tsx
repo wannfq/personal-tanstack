@@ -1,13 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {
   IconArrowRight,
-  IconAt,
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
   IconMapPin,
-  IconPalette,
-  IconRocket,
   IconSparkles,
 } from '@tabler/icons-react'
 
@@ -114,11 +111,13 @@ const contactLinks = [
 function HomePage() {
   return (
     <div className="bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-16 px-6 pt-12 pb-20 sm:px-10 lg:px-12">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pt-12 pb-20 sm:px-10 lg:px-12">
         <HeroSection />
-        <Separator className="bg-border/60" />
+        <Separator className="bg-border/40" />
         <AboutSection />
+        <Separator className="bg-border/40" />
         <ExperienceSection />
+        <Separator className="bg-border/40" />
         <ContactSection />
       </main>
     </div>
@@ -127,17 +126,17 @@ function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
+    <section className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center">
+      <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-6">
           <div className="space-y-4">
             <p className="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-              👋 Hi, I&apos;m <span className="text-primary">Wan Afiq</span>
+              Hi, I&apos;m <span className="text-primary">Wan Afiq</span>
             </p>
 
             <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
               <span
-                className="hidden h-0.5 w-8 rounded-full bg-primary/60 lg:inline-block"
+                className="hidden h-0.5 w-8 rounded-full bg-primary/40 lg:inline-block"
                 aria-hidden="true"
               />
               <span className="hidden text-xs uppercase tracking-[0.3em] text-muted-foreground/80 lg:inline">
@@ -146,13 +145,11 @@ function HeroSection() {
             </div>
 
             <p className="py-4 text-base text-muted-foreground sm:text-lg">
-              I build backend systems and developer tools, focusing on
-              reliability and practical solutions. Comfortable across languages
-              and stacks, I enjoy connecting disparate systems and helping teams
-              ship with confidence.
+              I build backend systems and developer tools. Comfortable across
+              stacks, focused on reliability.
             </p>
 
-            <span className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1">
+            <span className="inline-flex items-center gap-2 rounded-full px-3 py-1">
               <IconMapPin className="size-4" aria-hidden="true" />
               Kuala Lumpur, Malaysia • Hybrid / Remote
             </span>
@@ -164,14 +161,14 @@ function HeroSection() {
             <Badge
               key={skill}
               variant="secondary"
-              className="rounded-full px-3 py-1 text-xs font-medium"
+              className="rounded-full text-xs font-medium"
             >
               {skill}
             </Badge>
           ))}
         </div>
 
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-6">
           <a
             href="#experience"
             className={cn(buttonVariants({ size: 'lg' }), 'gap-2')}
@@ -181,19 +178,15 @@ function HeroSection() {
           </a>
           <a
             href="#contact"
-            className={cn(
-              buttonVariants({ variant: 'outline', size: 'lg' }),
-              'gap-2',
-            )}
+            className={cn(buttonVariants({ size: 'lg' }))}
           >
-            Contact Me
-            <IconAt className="size-4" aria-hidden="true" />
+            Contact
           </a>
         </div>
       </div>
 
       <div className="relative flex items-center justify-center">
-        <div className="relative flex size-full items-center justify-center overflow-hidden border border-border/40 bg-background/90 shadow-inner">
+        <div className="relative flex size-full items-center justify-center overflow-hidden bg-background/90 shadow-inner">
           <img
             src={profilePicture}
             alt="Wan Afiq"
@@ -211,41 +204,27 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="space-y-8">
+    <section id="about" className="space-y-12">
       <header className="space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <IconPalette className="size-4" aria-hidden="true" />
-          About
-        </div>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Crafting systems with intention
+          About Me
         </h2>
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
-        <div className="space-y-6">
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
+        <div className="space-y-8">
           <p className="text-muted-foreground">
-            I like working across the stack: backend services, frontends, and
-            the pipelines that tie them together. I'm always curious about new
-            tools and approaches, and I try to pick the right ones for the job
-            rather than chasing trends.
+            Backend, frontend, infrastructure. Just trying to build reliable systems.
           </p>
           <p className="text-muted-foreground">
-            I try to pick the right approach for each situation. Sometimes that
-            means keeping things simple, other times it calls for something more
-            robust. Either way, I prioritise scalability, resilience, and
-            solutions that teams can actually maintain. I enjoy collaborative
-            environments where people learn from each other.
+            Simple when possible, robust when needed. I build for scale and teams that actually use what I make.
           </p>
           <p className="text-muted-foreground">
-            I studied Naval Architecture and Marine Engineering at Saint
-            Petersburg State Marine Technical University. Software always
-            intrigued me, and I eventually made the switch. An unexpected path,
-            but one that taught me to think in systems.
+            Studied Naval Architecture, switched to software. That background taught me to think in systems.
           </p>
         </div>
 
-        <Card className="border-dashed">
+        <Card>
           <CardHeader className="space-y-2">
             <CardTitle className="flex items-center gap-2 text-lg font-semibold">
               <IconSparkles
@@ -255,15 +234,12 @@ function AboutSection() {
               Interests
             </CardTitle>
             <CardDescription>
-              Passionate about technology and always exploring what&apos;s next.
+              Always exploring new tools. Currently: AI tooling, Kubernetes.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm text-muted-foreground">
             <p>
-              I have a deep passion for technology and love exploring new tools
-              and frameworks. Recently, I&apos;ve been tinkering with AI
-              tooling, setting up micro Kubernetes clusters, and diving into
-              interesting frameworks like TanStack.
+              Always exploring new tools and frameworks. Currently working with AI tooling, Kubernetes, and TanStack.
             </p>
             <ul className="grid gap-2">
               <li className="flex items-start gap-2">
@@ -325,14 +301,10 @@ function AboutSection() {
 
 function ExperienceSection() {
   return (
-    <section id="experience" className="space-y-6">
+    <section id="experience" className="space-y-10">
       <header className="space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <IconRocket className="size-4" aria-hidden="true" />
-          Experience
-        </div>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl gap-4">
-          Previous Experience
+        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+          My Experience
         </h2>
         <p className="max-w-2xl text-muted-foreground">
           A snapshot of the platforms, products and engineering practices I have
@@ -340,11 +312,11 @@ function ExperienceSection() {
         </p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
         {experiences.map((experience) => (
           <Card
             key={`${experience.company}-${experience.role}-${experience.period}`}
-            className="group h-full border-dashed transition-all hover:border-primary/60 hover:shadow-lg"
+            className="group h-full transition-all hover:shadow-lg"
           >
             <CardHeader className="space-y-4">
               <div className="flex items-start justify-between gap-4">
@@ -379,7 +351,7 @@ function ExperienceSection() {
 
         <Card
           key="coming-soon"
-          className="group h-full border-dashed transition-all hover:border-primary/60 hover:shadow-lg"
+          className="group h-full transition-all hover:shadow-lg"
         >
           <CardHeader className="space-y-4">
             <div className="flex items-start justify-between gap-4">
@@ -400,31 +372,24 @@ function ExperienceSection() {
 
 function ContactSection() {
   return (
-    <section id="contact" className="space-y-6">
+    <section id="contact" className="space-y-10">
       <header className="space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 px-3 py-1 text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-          <IconAt className="size-4" aria-hidden="true" />
-          Contact
-        </div>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Let&apos;s build something together
+          Contact Me
         </h2>
         <p className="max-w-2xl text-muted-foreground">
-          Reach out to collaborate on platforms, developer experience
-          initiatives or coaching opportunities. I aim to respond within a
-          couple of business days.
+          Open to backend work, infrastructure, or mentoring. I&apos;ll get back to you within a couple days.
         </p>
       </header>
 
-      <Card className="border-dashed">
+      <Card>
         <CardContent className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="space-y-1">
             <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground/80 pb-4">
               Let's have a talk
             </p>
             <p className="text-sm text-muted-foreground">
-              Happy to chat about platform engineering, resilient architectures,
-              developer tooling, or the next frontier in AI technology.
+              Talk to me about platform engineering, resilient systems, dev tooling, or AI.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -436,8 +401,8 @@ function ContactSection() {
                 rel="noreferrer"
                 aria-label={label}
                 className={cn(
-                  buttonVariants({ variant: 'outline' }),
-                  'gap-2 rounded-full border-dashed px-4',
+                  buttonVariants(),
+                  'gap-2 rounded-full px-4',
                 )}
               >
                 <Icon className="size-4" aria-hidden="true" />
