@@ -1,25 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {
-  IconArrowRight,
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
   IconMapPin,
   IconSparkles,
 } from '@tabler/icons-react'
-
-import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { buttonVariants } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { cn } from '@/lib/utils'
-import profilePicture from '@/assets/profile-picture-afiq.jpg'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -46,7 +32,7 @@ const experiences = [
     highlights: [
       'Planned, developed and migrated the unified third-party job posting platform that serves JobStreet and SEEK marketplaces.',
       'Maintains and improves AWS account management tooling adopted across SEEK to keep teams compliant and productive.',
-      'Facilitates SEEK’s graduate program and contributes to the organisation’s new ownership solution.',
+      'Facilitates SEEK\u2019s graduate program and contributes to the organisation\u2019s new ownership solution.',
     ],
   },
   {
@@ -93,17 +79,14 @@ const experiences = [
 const contactLinks = [
   {
     label: 'LinkedIn',
-    icon: IconBrandLinkedin,
     href: 'https://www.linkedin.com/in/wannfq',
   },
   {
     label: 'GitHub',
-    icon: IconBrandGithub,
     href: 'https://github.com/wannfq',
   },
   {
     label: 'X',
-    icon: IconBrandX,
     href: 'https://x.com/thewanafiq',
   },
 ]
@@ -111,13 +94,10 @@ const contactLinks = [
 function HomePage() {
   return (
     <div className="bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 pt-12 pb-20 sm:px-10 lg:px-12">
+      <main className="mx-auto flex w-full max-w-6xl flex-col gap-32 px-6 pt-16 pb-24 sm:px-10 lg:px-12">
         <HeroSection />
-        <Separator className="bg-border/40" />
         <AboutSection />
-        <Separator className="bg-border/40" />
         <ExperienceSection />
-        <Separator className="bg-border/40" />
         <ContactSection />
       </main>
     </div>
@@ -126,160 +106,79 @@ function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-center">
-      <div className="flex flex-col gap-10">
-        <div className="flex flex-col gap-6">
-          <div className="space-y-4">
-            <p className="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-              Hi, I&apos;m <span className="text-primary">Wan Afiq</span>
-            </p>
-
-            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-              <span
-                className="hidden h-0.5 w-8 rounded-full bg-primary/40 lg:inline-block"
-                aria-hidden="true"
-              />
-              <span className="hidden text-xs uppercase tracking-[0.3em] text-muted-foreground/80 lg:inline">
-                Software Engineer
-              </span>
-            </div>
-
-            <p className="py-4 text-base text-muted-foreground sm:text-lg">
-              I build backend systems and developer tools. Comfortable across
-              stacks, focused on reliability.
-            </p>
-
-            <span className="inline-flex items-center gap-2 rounded-full px-3 py-1">
-              <IconMapPin className="size-4" aria-hidden="true" />
-              Kuala Lumpur, Malaysia • Hybrid / Remote
-            </span>
-          </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          {skills.map((skill) => (
-            <Badge
-              key={skill}
-              variant="secondary"
-              className="rounded-full text-xs font-medium"
-            >
-              {skill}
-            </Badge>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-6">
-          <a
-            href="#experience"
-            className={cn(buttonVariants({ size: 'lg' }), 'gap-2')}
-          >
-            View Experience
-            <IconArrowRight className="size-4" aria-hidden="true" />
-          </a>
-          <a
-            href="#contact"
-            className={cn(buttonVariants({ size: 'lg' }))}
-          >
-            Contact
-          </a>
-        </div>
+    <section className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6">
+        <h1 className="text-5xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
+          Wan Afiq
+        </h1>
+        <p className="text-lg text-muted-foreground">Software Engineer</p>
+        <p className="max-w-2xl text-base text-muted-foreground sm:text-lg">
+          I build backend systems and developer tools. Comfortable across
+          stacks, focused on reliability.
+        </p>
+        <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+          <IconMapPin className="size-4" aria-hidden="true" />
+          Kuala Lumpur, Malaysia
+        </span>
       </div>
 
-      <div className="relative flex items-center justify-center">
-        <div className="relative flex size-full items-center justify-center overflow-hidden bg-background/90 shadow-inner">
-          <img
-            src={profilePicture}
-            alt="Wan Afiq"
-            className="size-full object-cover grayscale"
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-primary/10 mix-blend-color"
-            aria-hidden="true"
-          />
-        </div>
-      </div>
+      <p className="text-sm text-muted-foreground">{skills.join(' \u00B7 ')}</p>
     </section>
   )
 }
 
 function AboutSection() {
   return (
-    <section id="about" className="space-y-12">
-      <header className="space-y-2">
+    <section id="about" className="space-y-10">
+      <header>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           About Me
         </h2>
       </header>
 
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
-        <div className="space-y-8">
+        <div className="space-y-6">
           <p className="text-muted-foreground">
-            Backend, frontend, infrastructure. Just trying to build reliable systems.
+            Backend, frontend, infrastructure. Just trying to build reliable
+            systems.
           </p>
           <p className="text-muted-foreground">
-            Simple when possible, robust when needed. I build for scale and teams that actually use what I make.
+            Simple when possible, robust when needed. I build for scale and
+            teams that actually use what I make.
           </p>
           <p className="text-muted-foreground">
-            Studied Naval Architecture, switched to software. That background taught me to think in systems.
+            Studied Naval Architecture, switched to software. That background
+            taught me to think in systems.
           </p>
         </div>
 
-        <Card>
-          <CardHeader className="space-y-2">
-            <CardTitle className="flex items-center gap-2 text-lg font-semibold">
-              <IconSparkles
-                className="size-5 text-primary"
-                aria-hidden="true"
-              />
-              Interests
-            </CardTitle>
-            <CardDescription>
-              Always exploring new tools. Currently: AI tooling, Kubernetes.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm text-muted-foreground">
-            <p>
-              Always exploring new tools and frameworks. Currently working with AI tooling, Kubernetes, and TanStack.
-            </p>
-            <ul className="grid gap-2">
-              <li className="flex items-start gap-2">
-                <span
-                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                  aria-hidden="true"
-                />
-                <span>
-                  Experimenting with Linux distros and customizing my
-                  development environment. Check out my{' '}
-                  <a
-                    href="https://github.com/wannfq/dotfiles"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
-                  >
-                    dotfiles
-                  </a>
-                  !
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                  aria-hidden="true"
-                />
-                <span>
-                  Building custom mechanical keyboards as a hands-on hobby.
-                </span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span
-                  className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                  aria-hidden="true"
-                />
-                <span>Unwinding with movies, music, gaming, and anime.</span>
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
+        <div className="space-y-4">
+          <h3 className="flex items-center gap-2 text-lg font-semibold">
+            <IconSparkles className="size-5 text-primary" aria-hidden="true" />
+            Interests
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Always exploring new tools and frameworks. Currently working with AI
+            tooling, Kubernetes, and TanStack.
+          </p>
+          <ul className="space-y-2 text-sm text-muted-foreground">
+            <li>
+              — Experimenting with Linux distros and customizing my development
+              environment. Check out my{' '}
+              <a
+                href="https://github.com/wannfq/dotfiles"
+                target="_blank"
+                rel="noreferrer"
+                className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
+              >
+                dotfiles
+              </a>
+              .
+            </li>
+            <li>— Building custom mechanical keyboards as a hands-on hobby.</li>
+            <li>— Unwinding with movies, music, gaming, and anime.</li>
+          </ul>
+        </div>
       </div>
 
       <p className="text-sm italic text-muted-foreground">
@@ -302,69 +201,42 @@ function AboutSection() {
 function ExperienceSection() {
   return (
     <section id="experience" className="space-y-10">
-      <header className="space-y-2">
+      <header>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           My Experience
         </h2>
-        <p className="max-w-2xl text-muted-foreground">
+        <p className="mt-2 max-w-2xl text-muted-foreground">
           A snapshot of the platforms, products and engineering practices I have
           shaped across marketplace, recruitment and bespoke software domains.
         </p>
       </header>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-        {experiences.map((experience) => (
-          <Card
+      <div className="flex flex-col gap-12">
+        {experiences.map((experience, index) => (
+          <article
             key={`${experience.company}-${experience.role}-${experience.period}`}
-            className="group h-full transition-all hover:shadow-lg"
+            className={index !== 0 ? 'border-t border-border pt-12' : ''}
           >
-            <CardHeader className="space-y-4">
-              <div className="flex items-start justify-between gap-4">
-                <CardTitle className="text-lg font-semibold">
-                  {experience.role}
-                </CardTitle>
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/70">
-                  {experience.period}
-                </span>
-              </div>
-              <CardDescription className="text-xs uppercase tracking-[0.3em] text-muted-foreground/80">
-                {experience.company}
-                {experience.location ? ` • ${experience.location}` : ''}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm text-muted-foreground">
-              <p>{experience.summary}</p>
-              <ul className="grid gap-2">
-                {experience.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-2">
-                    <span
-                      className="mt-1 size-2 shrink-0 rounded-full bg-primary"
-                      aria-hidden="true"
-                    />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        ))}
-
-        <Card
-          key="coming-soon"
-          className="group h-full transition-all hover:shadow-lg"
-        >
-          <CardHeader className="space-y-4">
-            <div className="flex items-start justify-between gap-4">
-              <CardTitle className="text-lg font-semibold">
-                Coming Soon...
-              </CardTitle>
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground/70"></span>
+            <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+              <h3 className="text-lg font-semibold">{experience.role}</h3>
+              <span className="text-sm text-muted-foreground">
+                {experience.period}
+              </span>
             </div>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm text-muted-foreground">
-            <p>Stay tuned for more updates!</p>
-          </CardContent>
-        </Card>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {experience.company}
+              {experience.location ? ` \u00B7 ${experience.location}` : ''}
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              {experience.summary}
+            </p>
+            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              {experience.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </section>
   )
@@ -373,45 +245,36 @@ function ExperienceSection() {
 function ContactSection() {
   return (
     <section id="contact" className="space-y-10">
-      <header className="space-y-2">
+      <header>
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Contact Me
         </h2>
-        <p className="max-w-2xl text-muted-foreground">
-          Open to backend work, infrastructure, or mentoring. I&apos;ll get back to you within a couple days.
+        <p className="mt-2 max-w-2xl text-muted-foreground">
+          Open to backend work, infrastructure, or mentoring. I&apos;ll get back
+          to you within a couple days.
         </p>
       </header>
 
-      <Card>
-        <CardContent className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <p className="text-sm uppercase tracking-[0.4em] text-muted-foreground/80 pb-4">
-              Let's have a talk
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Talk to me about platform engineering, resilient systems, dev tooling, or AI.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            {contactLinks.map(({ label, icon: Icon, href }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className={cn(
-                  buttonVariants(),
-                  'gap-2 rounded-full px-4',
-                )}
-              >
-                <Icon className="size-4" aria-hidden="true" />
-                {label}
-              </a>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+      <div className="space-y-2">
+        <p className="text-sm text-muted-foreground">
+          Talk to me about platform engineering, resilient systems, dev tooling,
+          or AI.
+        </p>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
+          {contactLinks.map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={label}
+              className="text-primary underline underline-offset-4 hover:text-primary/80"
+            >
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
     </section>
   )
 }

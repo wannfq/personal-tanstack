@@ -8,7 +8,6 @@ import {
 import { useQuery } from 'convex/react'
 import { IconMap } from '@tabler/icons-react'
 import { api } from '../../convex/_generated/api'
-import { Card } from '@/components/ui/card'
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -243,12 +242,12 @@ export function VisitorMap() {
 
   if (!isMounted) {
     return (
-      <Card className="p-6">
+      <div>
         <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
         <div className="flex h-[400px] items-center justify-center">
           <p className="text-sm text-muted-foreground">Loading map...</p>
         </div>
-      </Card>
+      </div>
     )
   }
 
@@ -442,24 +441,24 @@ function VisitorMapClient() {
 
   if (locations === undefined) {
     return (
-      <Card className="p-6">
+      <div>
         <div className="flex h-[400px] items-center justify-center">
           <p className="text-sm text-muted-foreground">Loading map...</p>
         </div>
-      </Card>
+      </div>
     )
   }
 
   if (locations.length === 0) {
     return (
-      <Card className="p-6">
+      <div>
         <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
         <div className="flex h-[400px] items-center justify-center">
           <p className="text-sm text-muted-foreground">
             No visitor location data available yet
           </p>
         </div>
-      </Card>
+      </div>
     )
   }
 
@@ -467,8 +466,8 @@ function VisitorMapClient() {
   const totalVisitors = locations.reduce((acc, l) => acc + l.count, 0)
 
   return (
-    <Card className="relative p-6">
-      <div className="flex flex-row items-center justify-between space-y-0">
+    <div className="relative">
+      <div className="flex flex-row items-center justify-between">
         <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
         <IconMap className="size-4 text-muted-foreground" />
       </div>
@@ -476,7 +475,7 @@ function VisitorMapClient() {
         Real-time visitor tracking and geographic distribution of site visitors.
       </p>
 
-      <div className="relative h-[400px] w-full overflow-hidden rounded-lg bg-background/50">
+      <div className="relative h-[400px] w-full overflow-hidden bg-background/50">
         <ComposableMap
           projection="geoMercator"
           projectionConfig={{
@@ -606,6 +605,6 @@ function VisitorMapClient() {
           <span>More</span>
         </div>
       </div>
-    </Card>
+    </div>
   )
 }

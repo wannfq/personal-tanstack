@@ -64,7 +64,6 @@ export function ThemeToggle() {
       type="button"
       aria-label={`Activate ${theme === 'dark' ? 'light' : 'dark'} mode`}
       onClick={handleToggle}
-      className="rounded-full border border-border/40 bg-background/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/40"
     >
       {icon}
       <span className="sr-only">
