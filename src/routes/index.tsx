@@ -6,6 +6,7 @@ import {
   IconMapPin,
   IconSparkles,
 } from '@tabler/icons-react'
+import profilePicture from '@/assets/profile-picture-afiq.jpg'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -126,7 +127,7 @@ function HeroSection() {
       <div className="relative mx-10">
         <div className="size-28 overflow-hidden rounded-full ring-2 ring-border sm:size-32 lg:size-36">
           <img
-            src="/src/assets/profile-picture-afiq.jpg"
+            src={profilePicture}
             alt="Wan Afiq"
             className="size-full object-cover grayscale"
             loading="eager"
