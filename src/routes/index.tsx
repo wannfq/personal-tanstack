@@ -124,7 +124,7 @@ function HeroSection() {
         <p className="text-sm text-muted-foreground">{skills.join(' \u00B7 ')}</p>
       </div>
 
-      <div className="relative mx-10">
+      <div className="relative mr-12">
         <div className="size-28 overflow-hidden rounded-full ring-2 ring-border sm:size-32 lg:size-36">
           <img
             src={profilePicture}
