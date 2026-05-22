@@ -106,7 +106,7 @@ function HomePage() {
 
 function HeroSection() {
   return (
-    <section className="flex flex-col gap-8">
+    <section className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-12">
       <div className="flex flex-col gap-6">
         <h1 className="text-5xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
           Wan Afiq
@@ -120,9 +120,20 @@ function HeroSection() {
           <IconMapPin className="size-4" aria-hidden="true" />
           Kuala Lumpur, Malaysia
         </span>
+        <p className="text-sm text-muted-foreground">{skills.join(' \u00B7 ')}</p>
       </div>
 
-      <p className="text-sm text-muted-foreground">{skills.join(' \u00B7 ')}</p>
+      <div className="relative mx-10">
+        <div className="size-28 overflow-hidden rounded-full ring-2 ring-border sm:size-32 lg:size-36">
+          <img
+            src="/src/assets/profile-picture-afiq.jpg"
+            alt="Wan Afiq"
+            className="size-full object-cover grayscale"
+            loading="eager"
+          />
+          <div className="absolute inset-0 rounded-full bg-primary/20 mix-blend-overlay" />
+        </div>
+      </div>
     </section>
   )
 }
