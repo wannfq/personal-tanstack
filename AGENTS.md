@@ -1,117 +1,165 @@
-# Agent Playbook
+# Repository Guidelines
 
-## Commands
+## Project Overview
 
-- **Install deps**: `bun install`
-- **Dev server**: `bun run dev` (Vite @3000, HMR enabled)
-- **Production build**: `bun run build`; preview with `bun run preview`
-- **Linting**: `bun run lint`
-- **Autofix + format**: `bun run check`
-- **Format only**: `bun run format` (Prettier)
-- **Full test suite**: `bun run test`
-- **Single test file**: `bun run test -- path/to/file.test.ts`
-- **Single test case**: `bun x vitest run -t "test name"`
+Personal portfolio and analytics dashboard built with **TanStack Start** (SSR framework), **React 19**, **TypeScript**, **Tailwind CSS 4**, **shadcn/ui**, and a **Convex** real-time backend. Features visitor tracking with IP geolocation, device detection, referrer parsing, and an interactive analytics dashboard with a geographic heatmap. Deployed to **Netlify** via Nitro.
 
-## Code Style
+## Architecture & Data Flow
+
+```
+Client (React 19 + TanStack Router)
+  ├── Routes (file-based, src/routes/)
+  │   ├── index.tsx — Static home page (hero, about, experience, contact)
+  │   ├── analytics.tsx — Real-time dashboard (Convex queries → charts/map)
+  │   └── $.tsx — Catch-all 404
+  ├── Components (src/components/)
+  │   ├── visitor-counter.tsx — Records visits via Convex mutation, displays count
+  │   ├── visitor-map.tsx — react-simple-maps geographic heatmap
+  │   ├── navigation.tsx / footer.tsx — Layout shell
+  │   └── theme-toggle.tsx — Dark/light mode via html.dark class
+  └── Root layout (__root.tsx)
+        └── Lazy-initializes Convex client (useEffect + useState → ConvexProvider)
+
+Server (Nitro SSR + TanStack Start server functions)
+  └── src/lib/visitor.ts — createServerFn: resolves IP → geolocation + device info
+
+Backend (Convex — real-time serverless)
+  ├── convex/schema.ts — visitors table (visitorId, city, country, lat, lng, deviceType, referrer, timestamp)
+  └── convex/visitors.ts — Queries (count, locations, devices, referrals) + mutation (recordVisit with dedup)
+```
+
+**Visitor tracking flow:** Client mounts → `visitor-counter.tsx` calls `createServerFn` to resolve geo/device from request headers → calls Convex `recordVisit` mutation (deduplicates by visitorId within session) → analytics page queries Convex in real time for aggregated data.
+
+## Key Directories
+
+| Directory | Purpose |
+|---|---|
+| `src/routes/` | File-based routes (TanStack Router codegen → `routeTree.gen.ts`) |
+| `src/components/` | Shared UI components + `ui/` (shadcn/ui primitives) |
+| `src/lib/` | Server functions, utilities, Convex client singleton, parsers |
+| `src/styles.css` | Tailwind CSS 4 entry — CSS custom properties (oklch), dark/light theme tokens |
+| `convex/` | Convex backend — schema, queries, mutations (`_generated/` is auto-generated) |
+| `public/` | Static assets |
+| `src/assets/` | Bundled assets (profile picture) |
+
+## Development Commands
+
+```bash
+bun install                     # Install dependencies
+bun run dev                     # Vite dev server at :3000 (HMR)
+bun run build                   # Production build (Vite → .output/ via Nitro)
+bun run start                   # Run production server (.output/server/index.mjs)
+bun run preview                 # Preview production build
+bun run test                    # Vitest (single run)
+bun run test -- path/to.test.ts # Single test file
+bun run lint                    # ESLint
+bun run format                  # Prettier
+bun run check                   # Prettier + ESLint autofix combined
+npx convex dev                  # Convex dev server (required alongside vite for data features)
+```
+
+## Code Conventions & Common Patterns
 
 ### TypeScript
 
-- **Strict mode** enabled
-- **Module resolution**: bundler
-- **AllowJs**: true (for config files)
-- **Path aliases**: `@/` → `./src/*` (configured in tsconfig)
+- **Strict mode** — `noUnusedLocals`, `noUnusedParameters` enabled
+- **Module resolution**: bundler mode
+- **Path alias**: `@/` → `./src/*` (tsconfig paths)
 
 ### Formatting (Prettier)
 
 - **No semicolons**
 - **Single quotes**
-- **Trailing commas**: always
-- Run `bun run format` to apply
-
-### Imports & Dependencies
-
-- Use `@/` alias for internal imports, avoid deep relative paths
-- Icons: `@tabler/icons-react` with `IconName` prefix (e.g., `IconArrowRight`, `IconBrandGithub`)
-- UI components: shadcn/ui via local `@/components/ui/*` imports
-- Avoid adding new dependencies without checking existing stack
-
-### React Components
-
-- **Functional components only** (no class components)
-- **Hooks**: keep flat at top level, no nested hooks
-- **Naming**: PascalCase for components (e.g., `Navigation`), kebab-case for files (e.g., `navigation.tsx`)
-- **Styling**: Tailwind CSS 4 with CSS variables for theming
-- Use `cn()` utility from `@/lib/utils` for className merging (wraps clsx + tailwind-merge)
-- Leverage component variants from class-variance-authority, avoid inline style overrides
+- **Trailing commas**: `all`
+- Run `bun run format` to apply, or `bun run check` for format + lint autofix
 
 ### Naming Conventions
 
-- Components: PascalCase (`VisitorCounter`)
-- Utilities/hooks: camelCase (`getVisitorGeoData`, `cn`)
-- Files: kebab-case (`visitor-counter.tsx`, `theme-toggle.tsx`)
-- Types/interfaces: PascalCase with descriptive names (`VisitorGeoData`)
+| Kind | Convention | Example |
+|---|---|---|
+| Components | PascalCase | `VisitorCounter`, `ThemeToggle` |
+| Component files | kebab-case | `visitor-counter.tsx`, `theme-toggle.tsx` |
+| Utilities/hooks | camelCase | `getVisitorGeoData`, `cn` |
+| Types/interfaces | PascalCase | `VisitorGeoData` |
 
-### Types
+### Components
 
-- **Prefer explicit types/interfaces** over `any`
-- Use TanStack utility types when appropriate
-- Server functions (`createServerFn`) should have typed request/response interfaces
-- Null returns for graceful failure (see `src/lib/visitor.ts` pattern)
+- **Functional only** — no class components
+- **Hooks flat at top level** — no nesting
+- **Styling**: Tailwind CSS 4 utility classes + `cn()` from `@/lib/utils` (wraps `clsx` + `tailwind-merge`)
+- **Variants**: class-variance-authority (CVA) — avoid inline style overrides
+- **Icons**: `@tabler/icons-react` exclusively, `IconName` prefix (e.g., `IconArrowRight`, `IconBrandGithub`)
+- **UI primitives**: shadcn/ui in `@/components/ui/`, built on `@base-ui/react` with CVA
 
 ### Error Handling
 
-- Use **narrow try/catch** blocks
-- Return typed fallback values or Result objects; never swallow failures silently
-- Log errors with `console.error` before returning null/defaults
-- Rethrow typed Errors for critical failures
+- Narrow `try/catch` blocks — never swallow silently
+- Return typed fallbacks or `null` for graceful degradation
+- `console.error` before returning defaults
+- Rethrow typed `Error` for critical failures
 
-### Styling
+### Imports
 
-- **Tailwind CSS 4** with shadcn/ui component library
-- **Theme**: dark mode default, managed by `ThemeToggle` via `localStorage` + `html.dark` class
-- **Icons**: always from `@tabler/icons-react`, follow `IconName` pattern
-- Use component variants for consistent styling; don't override with arbitrary Tailwind unless necessary
+- Use `@/` alias for all internal imports
+- Avoid deep relative paths (`../../../`)
 
-### Accessibility
+### Server Functions
 
-- Use semantic HTML elements
-- Include descriptive aria-labels on interactive elements
-- Follow shadcn/ui accessibility patterns for keyboard navigation
+- Use `createServerFn` from TanStack Start (`@tanstack/react-start`)
+- Typed request/response interfaces
+- Return `null` for graceful failure (see `src/lib/visitor.ts` pattern)
 
-### Framework Specifics
+### Theming
 
-- **Router**: TanStack Start with file-based routing in `src/routes/`
-- Route components use `createFileRoute` from `@tanstack/react-router`
-- Commit regenerated `routeTree.gen.ts` artifacts after route changes
-- **SSR**: enabled via Nitro; server functions use `@tanstack/react-start/server`
-- **Backend**: Convex for data persistence (schema in `convex/schema.ts`)
+- Dark mode default, toggled via `ThemeToggle` (localStorage + `html.dark` class)
+- CSS custom properties in oklch color space (defined in `src/styles.css`)
+- JetBrains Mono as the sole font family
 
-### Testing
+## Important Files
 
-- Test files: `*.test.ts` or `*.test.tsx`
-- Testing Library: `@testing-library/react`, `@testing-library/dom`
-- Environment: Vitest with jsdom
-- Write tests for user behavior, not implementation details
+| File | Role |
+|---|---|
+| `src/router.tsx` | Router instantiation (`getRouter()`) |
+| `src/routeTree.gen.ts` | Auto-generated route tree (commit after route changes) |
+| `src/routes/__root.tsx` | Root layout — Convex client init, nav, footer shell |
+| `src/lib/visitor.ts` | Server function — IP geolocation + device detection |
+| `src/lib/convex.ts` | Convex client singleton (lazy, env-driven) |
+| `src/lib/referrer-parser.ts` | Referrer URL → brand name matching |
+| `src/lib/utils.ts` | `cn()` className merge utility |
+| `convex/schema.ts` | Convex data model (visitors table + indexes) |
+| `convex/visitors.ts` | Convex queries + recordVisit mutation (dedup + geo-patch) |
+| `src/styles.css` | Tailwind CSS 4 entry + theme tokens + font imports |
+| `vite.config.ts` | Vite 7 + all plugins (TanStack, Nitro, Tailwind, Netlify, tsconfig-paths) |
+| `components.json` | shadcn/ui CLI config (base-lyra style, tabler icons) |
 
-### Assets
+## Runtime & Tooling Preferences
 
-- Static assets in `public/` directory
-- Optimize images for web, use responsive techniques
-- Profile picture: `src/assets/profile-picture-afiq.jpg`
+- **Runtime**: Bun (package manager + scripts). Netlify deploys with Bun 1.3.8
+- **Framework**: TanStack Start v1.132 + React 19 + Vite 7
+- **SSR**: Nitro (latest) — generates `.output/server/index.mjs`
+- **Backend**: Convex v1.31 (real-time serverless DB). Requires `VITE_CONVEX_URL` env var and `npx convex dev` for local development
+- **Styling**: Tailwind CSS 4 via `@tailwindcss/vite` plugin (not PostCSS)
+- **Component library**: shadcn/ui (base-lyra), installed via `npx shadcn@latest add <component>`
+- **Icons**: `@tabler/icons-react` — never substitute with other icon libraries
+- **Font**: `@fontsource-variable/jetbrains-mono` — single font, no font switching
+- **Deployment**: Netlify (`@netlify/vite-plugin-tanstack-start`). Build output in `dist/`, server in `.output/`
+- **ESM only**: `"type": "module"` in package.json
 
-### Git & Project Rules
+### Environment Variables
 
-- **No Cursor/Copilot rule files** detected; this document is authoritative
-- Follow existing commit patterns when creating new commits
-- Keep components focused and single-responsibility
-- Reuse existing utility functions before creating new ones
+| Variable | Purpose |
+|---|---|
+| `VITE_CONVEX_URL` | Convex cloud endpoint (required for visitor features) |
+| `CONVEX_DEPLOYMENT` | Convex deployment identifier |
+| `VITE_IGNORE_VISITOR_IP` | Toggle to disable IP geolocation lookups |
 
-## Quick Checks
+## Testing & QA
 
-- [ ] Ran `bun run lint` and `bun run check` before committing
-- [ ] Used `@/` alias instead of relative paths
-- [ ] Followed Prettier formatting (no semicolons, single quotes)
-- [ ] Added/updated type definitions for new props or return values
-- [ ] Checked accessibility (aria-labels, keyboard navigation)
-- [ ] Verified dark mode compatibility
-- [ ] Tested both dev and production builds when adding features
+- **Framework**: Vitest 3.x with jsdom environment
+- **Libraries**: `@testing-library/react` 16.x, `@testing-library/dom` 10.x
+- **Test files**: `*.test.ts` or `*.test.tsx`
+- **Run**: `bun run test` (single run), `bun run test -- path/to/file.test.ts` (specific file), `bun x vitest run -t "test name"` (specific case)
+- **Philosophy**: Test user behavior, not implementation details
+- **Coverage**: No thresholds configured (add `@vitest/coverage-*` if needed)
+- **No test setup files**: Vitest uses defaults — no `setupFiles`, no global mocks, no custom render wrappers yet
+- **Convex testing**: No test utilities installed — consider `convex-test` for query/mutation unit tests
