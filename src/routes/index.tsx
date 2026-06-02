@@ -188,7 +188,8 @@ function AboutSection() {
               .
             </li>
             <li>— Building custom mechanical keyboards as a hands-on hobby.</li>
-            <li>— Unwinding with movies, music, gaming, and anime.</li>
+            <li>— Walking around, doing photography.</li>
+            <li>— Unwinding with music, gaming, movies and anime shows.</li>
           </ul>
         </div>
       </div>
