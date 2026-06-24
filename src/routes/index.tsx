@@ -1,12 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router'
 import {
-  IconBrandGithub,
-  IconBrandLinkedin,
-  IconBrandX,
   IconMapPin,
   IconSparkles,
 } from '@tabler/icons-react'
 import profile256Avif from '@/assets/profile/profile-256.avif?url'
+import { GitHubContributions } from '@/components/github-contributions'
 import profile512Avif from '@/assets/profile/profile-512.avif?url'
 import profile256Jpg from '@/assets/profile/profile-256.jpg?url'
 
@@ -114,6 +112,7 @@ function HomePage() {
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
+        <GitHubContributions />
         <ContactSection />
       </main>
     </div>
