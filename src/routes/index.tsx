@@ -1,8 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  IconMapPin,
-  IconSparkles,
-} from '@tabler/icons-react'
+import { IconMapPin, IconSparkles } from '@tabler/icons-react'
 import profile256Avif from '@/assets/profile/profile-256.avif?url'
 import { GitHubContributions } from '@/components/github-contributions'
 import profile512Avif from '@/assets/profile/profile-512.avif?url'
@@ -135,7 +132,9 @@ function HeroSection() {
           <IconMapPin className="size-4" aria-hidden="true" />
           Kuala Lumpur, Malaysia
         </span>
-        <p className="text-sm text-muted-foreground">{skills.join(' \u00B7 ')}</p>
+        <p className="text-sm text-muted-foreground">
+          {skills.join(' \u00B7 ')}
+        </p>
       </div>
 
       <div className="relative mr-12">
@@ -286,7 +285,7 @@ function ContactSection() {
         <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
           Contact Me
         </h2>
-        <p className="mt-2 max-w-2xl text-muted-foreground">
+        <p className="mt-2 text-muted-foreground">
           Open to backend work, infrastructure, or mentoring. I&apos;ll get back
           to you within a couple days.
         </p>
