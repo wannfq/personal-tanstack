@@ -6,10 +6,25 @@ import {
   IconMapPin,
   IconSparkles,
 } from '@tabler/icons-react'
-import profilePicture from '@/assets/profile-picture-afiq.jpg'
+import profile256Avif from '@/assets/profile/profile-256.avif?url'
+import profile512Avif from '@/assets/profile/profile-512.avif?url'
+import profile256Jpg from '@/assets/profile/profile-256.jpg?url'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
+  head: () => ({
+    links: [
+      {
+        rel: 'preload',
+        as: 'image',
+        href: profile256Avif,
+        type: 'image/avif',
+        imagesrcset: `${profile256Avif} 256w, ${profile512Avif} 512w`,
+        imagesizes: '144px',
+        fetchpriority: 'high',
+      },
+    ],
+  }),
 })
 
 const skills = [
@@ -126,12 +141,22 @@ function HeroSection() {
 
       <div className="relative mr-12">
         <div className="size-28 overflow-hidden rounded-full ring-2 ring-border sm:size-32 lg:size-36">
-          <img
-            src={profilePicture}
-            alt="Wan Afiq"
-            className="size-full object-cover grayscale"
-            loading="eager"
-          />
+          <picture>
+            <source
+              type="image/avif"
+              srcSet={`${profile256Avif} 256w, ${profile512Avif} 512w`}
+              sizes="144px"
+            />
+            <img
+              src={profile256Jpg}
+              alt="Wan Afiq"
+              width={144}
+              height={144}
+              fetchPriority="high"
+              decoding="async"
+              className="size-full object-cover grayscale"
+            />
+          </picture>
           <div className="absolute inset-0 rounded-full bg-primary/20 mix-blend-overlay" />
         </div>
       </div>
