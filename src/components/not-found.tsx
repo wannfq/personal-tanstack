@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { IconArrowLeft } from '@tabler/icons-react'
 
 import { buttonVariants } from '@/components/ui/button'
+import { PageHeading } from '@/components/layout'
 import { cn } from '@/lib/utils'
 
 export function NotFound() {
@@ -13,9 +14,7 @@ export function NotFound() {
         </span>
 
         <div className="space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Page not found
-          </h1>
+          <PageHeading as="h1">Page not found</PageHeading>
           <p className="max-w-md text-muted-foreground">
             The page you're looking for doesn't exist or has been moved.
           </p>

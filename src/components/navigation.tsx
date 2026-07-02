@@ -1,10 +1,11 @@
 import { Link } from '@tanstack/react-router'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { Container } from '@/components/layout'
 
 export function Navigation() {
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-border bg-background">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6 sm:px-10 lg:px-12">
+      <Container className="flex h-14 items-center justify-between">
         <div className="flex items-center gap-4">
           <Link
             to="/"
@@ -17,7 +18,7 @@ export function Navigation() {
         <div className="flex items-center gap-4">
           <ThemeToggle />
         </div>
-      </div>
+      </Container>
     </nav>
   )
 }

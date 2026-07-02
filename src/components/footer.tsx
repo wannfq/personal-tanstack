@@ -1,11 +1,12 @@
 import { Link } from '@tanstack/react-router'
 import { IconChartBar } from '@tabler/icons-react'
 import { VisitorCounter } from '@/components/visitor-counter'
+import { Container } from '@/components/layout'
 
 export function Footer() {
   return (
     <footer className="mt-auto border-t border-border bg-background">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10 lg:px-12">
+      <Container className="flex items-center justify-between py-4">
         <VisitorCounter />
         <Link
           to="/analytics"
@@ -15,7 +16,7 @@ export function Footer() {
           <IconChartBar className="size-4" aria-hidden="true" />
           Analytics
         </Link>
-      </div>
+      </Container>
     </footer>
   )
 }

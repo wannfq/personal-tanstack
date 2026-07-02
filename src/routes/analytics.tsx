@@ -10,6 +10,7 @@ import {
 
 import { api } from '../../convex/_generated/api'
 import { VisitorMap } from '@/components/visitor-map'
+import { Container, PageHeading } from '@/components/layout'
 import { getReferrerIcon, getReferrerName } from '@/lib/referrer-parser'
 
 export const Route = createFileRoute('/analytics')({
@@ -42,12 +43,10 @@ function AnalyticsContent() {
 
   return (
     <div className="bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-12 sm:px-10 lg:px-12">
+      <Container as="main" className="flex flex-col gap-12 py-12">
         {/* Header */}
         <header>
-          <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Visitor Analytics
-          </h1>
+          <PageHeading as="h1">Visitor Analytics</PageHeading>
         </header>
 
         {/* Stats */}
@@ -170,7 +169,7 @@ function AnalyticsContent() {
             </div>
           </section>
         )}
-      </main>
+      </Container>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { IconMapPin, IconSparkles } from '@tabler/icons-react'
 import profile256Avif from '@/assets/profile/profile-256.avif?url'
 import { GitHubContributions } from '@/components/github-contributions'
+import { Container, PageHeading, Section } from '@/components/layout'
 import profile512Avif from '@/assets/profile/profile-512.avif?url'
 import profile256Jpg from '@/assets/profile/profile-256.jpg?url'
 
@@ -105,13 +106,13 @@ const contactLinks = [
 function HomePage() {
   return (
     <div className="bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-6xl flex-col gap-32 px-6 pt-16 pb-24 sm:px-10 lg:px-12">
+      <Container as="main" className="flex flex-col gap-32 pt-16 pb-24">
         <HeroSection />
         <AboutSection />
         <ExperienceSection />
         <GitHubContributions />
         <ContactSection />
-      </main>
+      </Container>
     </div>
   )
 }
@@ -164,11 +165,9 @@ function HeroSection() {
 
 function AboutSection() {
   return (
-    <section id="about" className="space-y-10">
+    <Section id="about">
       <header>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          About Me
-        </h2>
+        <PageHeading>About Me</PageHeading>
       </header>
 
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-start">
@@ -230,17 +229,15 @@ function AboutSection() {
         </a>
         .
       </p>
-    </section>
+    </Section>
   )
 }
 
 function ExperienceSection() {
   return (
-    <section id="experience" className="space-y-10">
+    <Section id="experience">
       <header>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          My Experience
-        </h2>
+        <PageHeading>My Experience</PageHeading>
         <p className="mt-2 max-w-2xl text-muted-foreground">
           A snapshot of the platforms, products and engineering practices I have
           shaped across marketplace, recruitment and bespoke software domains.
@@ -274,17 +271,15 @@ function ExperienceSection() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   )
 }
 
 function ContactSection() {
   return (
-    <section id="contact" className="space-y-10">
+    <Section id="contact">
       <header>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-          Contact Me
-        </h2>
+        <PageHeading>Contact Me</PageHeading>
         <p className="mt-2 text-muted-foreground">
           Open to backend work, infrastructure, or mentoring. I&apos;ll get back
           to you within a couple days.
@@ -311,6 +306,6 @@ function ContactSection() {
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   )
 }
