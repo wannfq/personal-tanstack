@@ -11,6 +11,7 @@ import { api } from '../../convex/_generated/api'
 import { VisitorMap } from '@/components/visitor-map'
 import { ClientOnly } from '@/components/client-only'
 import { Container, PageHeading } from '@/components/layout'
+import { AnalyticsSection, AnalyticsRow } from '@/components/analytics'
 import { getReferrerIcon, getReferrerName } from '@/lib/referrer-parser'
 
 export const Route = createFileRoute('/analytics')({
@@ -46,104 +47,67 @@ function AnalyticsContent() {
         </header>
 
         {/* Stats */}
-        <section>
-          <div className="flex items-center gap-2">
-            <IconUsers className="size-4 text-muted-foreground" />
-            <h2 className="text-lg font-semibold">Total Visitors</h2>
-          </div>
+        <AnalyticsSection icon={IconUsers} title="Total Visitors">
           <p className="mt-2 text-3xl font-bold">
             {visitorCount?.toLocaleString() ?? '\u2014'}
           </p>
           <p className="text-xs text-muted-foreground">Unique visitors count</p>
-        </section>
+        </AnalyticsSection>
 
         {/* Visitor Map */}
         <VisitorMap />
 
         {/* Top Locations */}
         {locations && locations.length > 0 && (
-          <section>
-            <div className="flex items-center gap-2">
-              <IconPin className="size-4 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Top Visitor Locations</h2>
-            </div>
+          <AnalyticsSection icon={IconPin} title="Top Visitor Locations">
             <div className="mt-4 space-y-3">
               {locations
                 .sort((a, b) => b.count - a.count)
                 .slice(0, 5)
                 .map((location) => (
-                  <div
-                    key={`${location.city}-${location.country}`}
-                    className="flex items-center justify-between border-b border-border pb-3"
-                  >
+                  <AnalyticsRow key={`${location.city}-${location.country}`} count={location.count}>
                     <div>
                       <p className="font-medium">{location.city}</p>
                       <p className="text-xs text-muted-foreground">
                         {location.country}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold">{location.count}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {location.count === 1 ? 'visitor' : 'visitors'}
-                      </p>
-                    </div>
-                  </div>
+                  </AnalyticsRow>
                 ))}
             </div>
-          </section>
+          </AnalyticsSection>
         )}
 
         {/* Top Devices */}
         {devices && Object.keys(devices).length > 0 && (
-          <section>
-            <div className="flex items-center gap-2">
-              <IconDevices className="size-4 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Top Visitor Devices</h2>
-            </div>
+          <AnalyticsSection icon={IconDevices} title="Top Visitor Devices">
             <div className="mt-4 space-y-3">
               {Object.entries(devices)
                 .sort((a, b) => b[1] - a[1])
                 .map(([device, count]) => (
-                  <div
-                    key={device}
-                    className="flex items-center justify-between border-b border-border pb-3"
-                  >
+                  <AnalyticsRow key={device} count={count}>
                     <div>
                       <p className="capitalize font-medium">{device}</p>
                       <p className="text-xs text-muted-foreground">
                         Device Type
                       </p>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold">{count}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {count === 1 ? 'visitor' : 'visitors'}
-                      </p>
-                    </div>
-                  </div>
+                  </AnalyticsRow>
                 ))}
             </div>
-          </section>
+          </AnalyticsSection>
         )}
 
         {/* Top Traffic Sources */}
         {referrals && referrals.length > 0 && (
-          <section>
-            <div className="flex items-center gap-2">
-              <IconChartBar className="size-4 text-muted-foreground" />
-              <h2 className="text-lg font-semibold">Top Traffic Sources</h2>
-            </div>
+          <AnalyticsSection icon={IconChartBar} title="Top Traffic Sources">
             <div className="mt-4 space-y-3">
               {referrals.slice(0, 10).map(({ referrer, count }) => {
                 const Icon = getReferrerIcon(referrer)
                 const name = getReferrerName(referrer)
 
                 return (
-                  <div
-                    key={referrer ?? 'direct'}
-                    className="flex items-center justify-between border-b border-border pb-3"
-                  >
+                  <AnalyticsRow key={referrer ?? 'direct'} count={count}>
                     <div className="flex items-center gap-3">
                       <Icon className="size-5 text-muted-foreground" />
                       <div>
@@ -153,17 +117,11 @@ function AnalyticsContent() {
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold">{count}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {count === 1 ? 'visitor' : 'visitors'}
-                      </p>
-                    </div>
-                  </div>
+                  </AnalyticsRow>
                 )
               })}
             </div>
-          </section>
+          </AnalyticsSection>
         )}
       </Container>
     </div>
