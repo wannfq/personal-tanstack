@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { IconMapPin, IconSparkles } from '@tabler/icons-react'
 import profile256Avif from '@/assets/profile/profile-256.avif?url'
 import { GitHubContributions } from '@/components/github-contributions'
+import { ExternalLink } from '@/components/external-link'
 import { Container, PageHeading, Section } from '@/components/layout'
 import profile512Avif from '@/assets/profile/profile-512.avif?url'
 import profile256Jpg from '@/assets/profile/profile-256.jpg?url'
@@ -199,14 +200,9 @@ function AboutSection() {
             <li>
               — Experimenting with Linux distros and customizing my development
               environment. Check out my{' '}
-              <a
-                href="https://github.com/wannfq/dotfiles"
-                target="_blank"
-                rel="noreferrer"
-                className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
-              >
+              <ExternalLink href="https://github.com/wannfq/dotfiles" offset={2}>
                 dotfiles
-              </a>
+              </ExternalLink>
               .
             </li>
             <li>— Building custom mechanical keyboards as a hands-on hobby.</li>
@@ -219,14 +215,9 @@ function AboutSection() {
       <p className="text-sm italic text-muted-foreground">
         This site is built with TanStack Start and React. You can view the
         source on{' '}
-        <a
-          href="https://github.com/wannfq/personal-tanstack"
-          target="_blank"
-          rel="noreferrer"
-          className="font-medium text-primary underline underline-offset-2 hover:text-primary/80"
-        >
+        <ExternalLink href="https://github.com/wannfq/personal-tanstack" offset={2}>
           GitHub
-        </a>
+        </ExternalLink>
         .
       </p>
     </Section>
@@ -293,16 +284,14 @@ function ContactSection() {
         </p>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
           {contactLinks.map(({ label, href }) => (
-            <a
+            <ExternalLink
               key={label}
               href={href}
-              target="_blank"
-              rel="noreferrer"
+              weight="normal"
               aria-label={label}
-              className="text-primary underline underline-offset-4 hover:text-primary/80"
             >
               {label}
-            </a>
+            </ExternalLink>
           ))}
         </div>
       </div>

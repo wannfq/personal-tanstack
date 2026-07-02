@@ -5,7 +5,6 @@ import {
   IconBrandLinkedin,
   IconBrandReddit,
   IconBrandStackoverflow,
-  IconBrandTwitter,
   IconBrandX,
   IconBrandYoutube,
   IconGlobe,
@@ -22,8 +21,8 @@ export interface ReferrerBrand {
 export const REFERRER_BRANDS: Array<ReferrerBrand> = [
   {
     name: 'X',
-    icon: IconBrandTwitter,
-    domains: ['twitter.com', 'x.com'],
+    icon: IconBrandX,
+    domains: ['twitter.com', 'x.com', 't.co'],
   },
   {
     name: 'LinkedIn',
@@ -49,11 +48,6 @@ export const REFERRER_BRANDS: Array<ReferrerBrand> = [
     name: 'YouTube',
     icon: IconBrandYoutube,
     domains: ['youtube.com', 'youtu.be'],
-  },
-  {
-    name: 'X',
-    icon: IconBrandX,
-    domains: ['twitter.com', 'x.com', 't.co'],
   },
   {
     name: 'Reddit',

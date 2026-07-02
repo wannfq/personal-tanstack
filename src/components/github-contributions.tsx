@@ -17,6 +17,7 @@ import {
   type Activity,
 } from '@/components/contribution-graph'
 import { ClientOnly } from '@/components/client-only'
+import { ExternalLink } from '@/components/external-link'
 import { getGitHubContributions } from '@/lib/github-contributions'
 
 const GITHUB_PROFILE_URL = 'https://github.com/wannfq'
@@ -49,14 +50,7 @@ function ErrorState() {
       <IconBrandGithub aria-hidden="true" className="size-4" />
       <p>
         Unable to load contributions. View them directly on{' '}
-        <a
-          className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
-          href={GITHUB_PROFILE_URL}
-          rel="noreferrer"
-          target="_blank"
-        >
-          GitHub
-        </a>
+        <ExternalLink href={GITHUB_PROFILE_URL}>GitHub</ExternalLink>
         .
       </p>
     </div>
@@ -90,14 +84,9 @@ function ContributionGraphView({ data }: { data: Activity[] }) {
                 {totalCount.toLocaleString('en')}
               </span>{' '}
               contributions in {year} on{' '}
-              <a
-                className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
-                href={GITHUB_PROFILE_URL}
-                rel="noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href={GITHUB_PROFILE_URL}>
                 GitHub
-              </a>
+              </ExternalLink>
               .
             </span>
           )}
