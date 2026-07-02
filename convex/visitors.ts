@@ -128,15 +128,11 @@ export const getVisitorReferrals = query({
     const visitors = await ctx.db.query('visitors').collect()
     const referrals = new Map<string | null, number>()
 
-    visitors.forEach((visitor) => {
-      if (visitor.referrer) {
-        const count = referrals.get(visitor.referrer) || 0
-        referrals.set(visitor.referrer, count + 1)
-      } else {
-        const count = referrals.get(null) || 0
-        referrals.set(null, count + 1)
-      }
-    })
+    for (const visitor of visitors) {
+      const key = visitor.referrer || null
+      const count = referrals.get(key) || 0
+      referrals.set(key, count + 1)
+    }
 
     return Array.from(referrals.entries())
       .map(([referrer, count]) => ({ referrer, count }))
