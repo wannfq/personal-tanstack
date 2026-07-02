@@ -16,6 +16,7 @@ import {
   ContributionGraphTotalCount,
   type Activity,
 } from '@/components/contribution-graph'
+import { ClientOnly } from '@/components/client-only'
 import { getGitHubContributions } from '@/lib/github-contributions'
 
 const GITHUB_PROFILE_URL = 'https://github.com/wannfq'
@@ -134,18 +135,11 @@ function GitHubContributionsClient() {
 }
 
 export function GitHubContributions() {
-  // Match the visitor-counter pattern: render the loading fallback on first
-  // paint, then hydrate to the real client on mount. TanStack Start server
-  // functions are called via HTTP from the browser, so we don't want to
-  // block the initial document on the GitHub fetch.
-  const [isMounted, setIsMounted] = useState(false)
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
   return (
     <section id="github">
-      {isMounted ? <GitHubContributionsClient /> : <LoadingState />}
+      <ClientOnly fallback={<LoadingState />}>
+        <GitHubContributionsClient />
+      </ClientOnly>
     </section>
   )
 }

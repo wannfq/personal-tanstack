@@ -1,5 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useEffect, useState } from 'react'
 import { useQuery } from 'convex/react'
 import {
   IconChartBar,
@@ -10,6 +9,7 @@ import {
 
 import { api } from '../../convex/_generated/api'
 import { VisitorMap } from '@/components/visitor-map'
+import { ClientOnly } from '@/components/client-only'
 import { Container, PageHeading } from '@/components/layout'
 import { getReferrerIcon, getReferrerName } from '@/lib/referrer-parser'
 
@@ -18,21 +18,17 @@ export const Route = createFileRoute('/analytics')({
 })
 
 function AnalyticsPage() {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-muted-foreground">Loading analytics...</p>
-      </div>
-    )
-  }
-
-  return <AnalyticsContent />
+  return (
+    <ClientOnly
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <p className="text-muted-foreground">Loading analytics...</p>
+        </div>
+      }
+    >
+      <AnalyticsContent />
+    </ClientOnly>
+  )
 }
 
 function AnalyticsContent() {

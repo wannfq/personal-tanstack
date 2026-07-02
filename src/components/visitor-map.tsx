@@ -8,6 +8,7 @@ import {
 import { useQuery } from 'convex/react'
 import { IconMap } from '@tabler/icons-react'
 import { api } from '../../convex/_generated/api'
+import { ClientOnly } from '@/components/client-only'
 
 const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
 
@@ -233,25 +234,21 @@ interface TooltipData {
   y: number
 }
 
+const visitorMapFallback = (
+  <div>
+    <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
+    <div className="flex h-[400px] items-center justify-center">
+      <p className="text-sm text-muted-foreground">Loading map...</p>
+    </div>
+  </div>
+)
+
 export function VisitorMap() {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return (
-      <div>
-        <h3 className="mb-4 text-lg font-semibold">Visitor Locations</h3>
-        <div className="flex h-[400px] items-center justify-center">
-          <p className="text-sm text-muted-foreground">Loading map...</p>
-        </div>
-      </div>
-    )
-  }
-
-  return <VisitorMapClient />
+  return (
+    <ClientOnly fallback={visitorMapFallback}>
+      <VisitorMapClient />
+    </ClientOnly>
+  )
 }
 
 // Numeric ISO code to Alpha-2 mapping

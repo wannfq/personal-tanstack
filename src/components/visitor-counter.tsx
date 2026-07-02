@@ -2,6 +2,7 @@ import { useMutation, useQuery } from 'convex/react'
 import { useEffect, useState } from 'react'
 import { api } from '../../convex/_generated/api'
 import type { VisitorData } from '@/lib/visitor'
+import { ClientOnly } from '@/components/client-only'
 import { getVisitorData } from '@/lib/visitor'
 
 const fallbackContent = (
@@ -9,17 +10,11 @@ const fallbackContent = (
 )
 
 export function VisitorCounter() {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return fallbackContent
-  }
-
-  return <VisitorCounterClient />
+  return (
+    <ClientOnly fallback={fallbackContent}>
+      <VisitorCounterClient />
+    </ClientOnly>
+  )
 }
 
 function VisitorCounterClient() {
