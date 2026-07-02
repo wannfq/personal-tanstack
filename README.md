@@ -78,6 +78,10 @@ Use your preferred package runner (`bun run`, `pnpm`, `npm run`):
 │  ├─ assets/              # Static assets (profile picture, etc.)
 │  ├─ components/
 │  │  ├─ ui/               # shadcn/ui primitives built on Base UI
+│  │  ├─ analytics/        # Analytics dashboard section & row components
+│  │  ├─ layout/           # Container, PageHeading, Section layout primitives
+│  │  ├─ client-only.tsx   # SSR-safe client-only render wrapper
+│  │  ├─ external-link.tsx # Styled external link with CVA variants
 │  │  ├─ visitor-counter.tsx # Real-time visitor counter component
 │  │  ├─ visitor-map.tsx   # Interactive geographic visitor map
 │  │  ├─ navigation.tsx    # Site navigation
@@ -86,7 +90,8 @@ Use your preferred package runner (`bun run`, `pnpm`, `npm run`):
 │  ├─ lib/
 │  │  ├─ convex.ts         # Convex client configuration
 │  │  ├─ visitor.ts        # Visitor geolocation utilities
-│  │  ├─ performance.ts    # Performance optimization utilities
+│  │  ├─ referrer-parser.ts # Referrer URL to brand name matching
+│  │  ├─ runtime.ts        # Runtime detection utilities
 │  │  └─ utils.ts          # General utility helpers
 │  ├─ routes/
 │  │  ├─ __root.tsx        # Root document shell & HTML head setup
