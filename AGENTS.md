@@ -14,7 +14,11 @@ Client (React 19 + TanStack Router)
   │   └── $.tsx — Catch-all 404
   ├── Components (src/components/)
   │   ├── visitor-counter.tsx — Records visits via Convex mutation, displays count
-  │   ├── visitor-map.tsx — react-simple-maps geographic heatmap
+  │   ├── visitor-map/ — Geographic heatmap (visitor-map.tsx, tooltip, legend)
+  │   ├── layout/ — Container, PageHeading, Section layout primitives
+  │   ├── analytics/ — AnalyticsSection, AnalyticsRow dashboard components
+  │   ├── client-only.tsx — SSR-safe wrapper (mount guard seam)
+  │   ├── external-link.tsx — Styled external link with CVA variants
   │   ├── navigation.tsx / footer.tsx — Layout shell
   │   └── theme-toggle.tsx — Dark/light mode via html.dark class
   └── Root layout (__root.tsx)
@@ -125,6 +129,8 @@ npx convex dev                  # Convex dev server (required alongside vite for
 | `src/lib/visitor.ts` | Server function — IP geolocation + device detection |
 | `src/lib/convex.ts` | Convex client singleton (lazy, env-driven) |
 | `src/lib/referrer-parser.ts` | Referrer URL → brand name matching |
+| `src/lib/country-codes.ts` | ISO country code mappings + `toAlpha2()`/`getCountryName()` |
+| `src/lib/use-theme-color.ts` | `useThemeColor()` hook — MutationObserver + canvas color extraction |
 | `src/lib/utils.ts` | `cn()` className merge utility |
 | `convex/schema.ts` | Convex data model (visitors table + indexes) |
 | `convex/visitors.ts` | Convex queries + recordVisit mutation (dedup + geo-patch) |

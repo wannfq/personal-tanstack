@@ -80,10 +80,10 @@ Use your preferred package runner (`bun run`, `pnpm`, `npm run`):
 │  │  ├─ ui/               # shadcn/ui primitives built on Base UI
 │  │  ├─ analytics/        # Analytics dashboard section & row components
 │  │  ├─ layout/           # Container, PageHeading, Section layout primitives
+│  │  ├─ visitor-map/      # Geographic heatmap (map, tooltip, legend)
 │  │  ├─ client-only.tsx   # SSR-safe client-only render wrapper
 │  │  ├─ external-link.tsx # Styled external link with CVA variants
 │  │  ├─ visitor-counter.tsx # Real-time visitor counter component
-│  │  ├─ visitor-map.tsx   # Interactive geographic visitor map
 │  │  ├─ navigation.tsx    # Site navigation
 │  │  ├─ footer.tsx        # Footer component
 │  │  └─ not-found.tsx     # 404 page component
@@ -91,6 +91,8 @@ Use your preferred package runner (`bun run`, `pnpm`, `npm run`):
 │  │  ├─ convex.ts         # Convex client configuration
 │  │  ├─ visitor.ts        # Visitor geolocation utilities
 │  │  ├─ referrer-parser.ts # Referrer URL to brand name matching
+│  │  ├─ country-codes.ts  # ISO country code mappings & conversions
+│  │  ├─ use-theme-color.ts # Theme color extraction hook
 │  │  ├─ runtime.ts        # Runtime detection utilities
 │  │  └─ utils.ts          # General utility helpers
 │  ├─ routes/
