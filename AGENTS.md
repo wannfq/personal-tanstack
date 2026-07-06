@@ -36,15 +36,15 @@ Backend (Convex — real-time serverless)
 
 ## Key Directories
 
-| Directory | Purpose |
-|---|---|
-| `src/routes/` | File-based routes (TanStack Router codegen → `routeTree.gen.ts`) |
-| `src/components/` | Shared UI components + `ui/` (shadcn/ui primitives) |
-| `src/lib/` | Server functions, utilities, Convex client singleton, parsers |
-| `src/styles.css` | Tailwind CSS 4 entry — CSS custom properties (oklch), dark/light theme tokens |
-| `convex/` | Convex backend — schema, queries, mutations (`_generated/` is auto-generated) |
-| `public/` | Static assets |
-| `src/assets/` | Bundled assets (profile picture) |
+| Directory         | Purpose                                                                       |
+| ----------------- | ----------------------------------------------------------------------------- |
+| `src/routes/`     | File-based routes (TanStack Router codegen → `routeTree.gen.ts`)              |
+| `src/components/` | Shared UI components + `ui/` (shadcn/ui primitives)                           |
+| `src/lib/`        | Server functions, utilities, Convex client singleton, parsers                 |
+| `src/styles.css`  | Tailwind CSS 4 entry — CSS custom properties (oklch), dark/light theme tokens |
+| `convex/`         | Convex backend — schema, queries, mutations (`_generated/` is auto-generated) |
+| `public/`         | Static assets                                                                 |
+| `src/assets/`     | Bundled assets (profile picture)                                              |
 
 ## Development Commands
 
@@ -79,12 +79,12 @@ npx convex dev                  # Convex dev server (required alongside vite for
 
 ### Naming Conventions
 
-| Kind | Convention | Example |
-|---|---|---|
-| Components | PascalCase | `VisitorCounter`, `ThemeToggle` |
-| Component files | kebab-case | `visitor-counter.tsx`, `theme-toggle.tsx` |
-| Utilities/hooks | camelCase | `getVisitorGeoData`, `cn` |
-| Types/interfaces | PascalCase | `VisitorGeoData` |
+| Kind             | Convention | Example                                   |
+| ---------------- | ---------- | ----------------------------------------- |
+| Components       | PascalCase | `VisitorCounter`, `ThemeToggle`           |
+| Component files  | kebab-case | `visitor-counter.tsx`, `theme-toggle.tsx` |
+| Utilities/hooks  | camelCase  | `getVisitorGeoData`, `cn`                 |
+| Types/interfaces | PascalCase | `VisitorGeoData`                          |
 
 ### Components
 
@@ -121,29 +121,29 @@ npx convex dev                  # Convex dev server (required alongside vite for
 
 ## Important Files
 
-| File | Role |
-|---|---|
-| `src/router.tsx` | Router instantiation (`getRouter()`) |
-| `src/routeTree.gen.ts` | Auto-generated route tree (commit after route changes) |
-| `src/routes/__root.tsx` | Root layout — Convex client init, nav, footer shell |
-| `src/lib/visitor.ts` | Server function — IP geolocation + device detection |
-| `src/lib/convex.ts` | Convex client singleton (lazy, env-driven) |
-| `src/lib/referrer-parser.ts` | Referrer URL → brand name matching |
-| `src/lib/country-codes.ts` | ISO country code mappings + `toAlpha2()`/`getCountryName()` |
-| `src/lib/use-theme-color.ts` | `useThemeColor()` hook — MutationObserver + canvas color extraction |
-| `src/lib/utils.ts` | `cn()` className merge utility |
-| `convex/schema.ts` | Convex data model (visitors table + indexes) |
-| `convex/visitors.ts` | Convex queries + recordVisit mutation (dedup + geo-patch) |
-| `src/styles.css` | Tailwind CSS 4 entry + theme tokens + font imports |
-| `vite.config.ts` | Vite 7 + all plugins (TanStack, Nitro, Tailwind, Netlify, tsconfig-paths) |
-| `components.json` | shadcn/ui CLI config (base-lyra style, tabler icons) |
+| File                         | Role                                                                      |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `src/router.tsx`             | Router instantiation (`getRouter()`)                                      |
+| `src/routeTree.gen.ts`       | Auto-generated route tree (commit after route changes)                    |
+| `src/routes/__root.tsx`      | Root layout — Convex client init, nav, footer shell                       |
+| `src/lib/visitor.ts`         | Server function — IP geolocation + device detection                       |
+| `src/lib/convex.ts`          | Convex client singleton (lazy, env-driven)                                |
+| `src/lib/referrer-parser.ts` | Referrer URL → brand name matching                                        |
+| `src/lib/country-codes.ts`   | ISO country code mappings + `toAlpha2()`/`getCountryName()`               |
+| `src/lib/use-theme-color.ts` | `useThemeColor()` hook — MutationObserver + canvas color extraction       |
+| `src/lib/utils.ts`           | `cn()` className merge utility                                            |
+| `convex/schema.ts`           | Convex data model (visitors table + indexes)                              |
+| `convex/visitors.ts`         | Convex queries + recordVisit mutation (dedup + geo-patch)                 |
+| `src/styles.css`             | Tailwind CSS 4 entry + theme tokens + font imports                        |
+| `vite.config.ts`             | Vite 8 + all plugins (TanStack, Nitro, Tailwind, Netlify, tsconfig-paths) |
+| `components.json`            | shadcn/ui CLI config (base-lyra style, tabler icons)                      |
 
 ## Runtime & Tooling Preferences
 
 - **Runtime**: Bun (package manager + scripts). Netlify deploys with Bun 1.3.8
-- **Framework**: TanStack Start v1.132 + React 19 + Vite 7
+- **Framework**: TanStack Start v1.168 + React 19 + Vite 8
 - **SSR**: Nitro (latest) — generates `.output/server/index.mjs`
-- **Backend**: Convex v1.31 (real-time serverless DB). Requires `VITE_CONVEX_URL` env var and `npx convex dev` for local development
+- **Backend**: Convex v1.42 (real-time serverless DB). Requires `VITE_CONVEX_URL` env var and `npx convex dev` for local development
 - **Styling**: Tailwind CSS 4 via `@tailwindcss/vite` plugin (not PostCSS)
 - **Component library**: shadcn/ui (base-lyra), installed via `npx shadcn@latest add <component>`
 - **Icons**: `@tabler/icons-react` — never substitute with other icon libraries
@@ -153,15 +153,15 @@ npx convex dev                  # Convex dev server (required alongside vite for
 
 ### Environment Variables
 
-| Variable | Purpose |
-|---|---|
-| `VITE_CONVEX_URL` | Convex cloud endpoint (required for visitor features) |
-| `CONVEX_DEPLOYMENT` | Convex deployment identifier |
-| `VITE_IGNORE_VISITOR_IP` | Toggle to disable IP geolocation lookups |
+| Variable                 | Purpose                                               |
+| ------------------------ | ----------------------------------------------------- |
+| `VITE_CONVEX_URL`        | Convex cloud endpoint (required for visitor features) |
+| `CONVEX_DEPLOYMENT`      | Convex deployment identifier                          |
+| `VITE_IGNORE_VISITOR_IP` | Toggle to disable IP geolocation lookups              |
 
 ## Testing & QA
 
-- **Framework**: Vitest 3.x with jsdom environment
+- **Framework**: Vitest 4.x with jsdom environment
 - **Libraries**: `@testing-library/react` 16.x, `@testing-library/dom` 10.x
 - **Test files**: `*.test.ts` or `*.test.tsx`
 - **Run**: `bun run test` (single run), `bun run test -- path/to/file.test.ts` (specific file), `bun x vitest run -t "test name"` (specific case)

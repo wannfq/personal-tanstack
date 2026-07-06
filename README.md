@@ -8,7 +8,7 @@ A personal website built with TanStack Start + React, featuring real-time visito
 
 - **TanStack Start** for file-based routing, server components, and a Nitro-powered SSR build pipeline.
 - **React 19 + TypeScript** for a type-safe component architecture.
-- **Vite 7** as the dev server and bundler with hot module replacement.
+- **Vite 8** as the dev server and bundler with hot module replacement.
 - **Tailwind CSS 4** with shadcn/ui for a headless, themeable component library.
 - **Convex** for real-time backend with visitor analytics and geolocation tracking.
 - **Tabler Icons** for a comprehensive icon library.
