@@ -13,9 +13,14 @@ import { ClientOnly } from '@/components/client-only'
 import { Container, PageHeading } from '@/components/layout'
 import { AnalyticsSection, AnalyticsRow } from '@/components/analytics'
 import { getReferrerIcon, getReferrerName } from '@/lib/referrer-parser'
+import { analyticsTitle, analyticsUrl } from '@/lib/seo'
 
 export const Route = createFileRoute('/analytics')({
   component: AnalyticsPage,
+  head: () => ({
+    meta: [{ title: analyticsTitle }, { name: 'robots', content: 'noindex' }],
+    links: [{ rel: 'canonical', href: analyticsUrl }],
+  }),
 })
 
 function AnalyticsPage() {
@@ -65,7 +70,10 @@ function AnalyticsContent() {
                 .sort((a, b) => b.count - a.count)
                 .slice(0, 5)
                 .map((location) => (
-                  <AnalyticsRow key={`${location.city}-${location.country}`} count={location.count}>
+                  <AnalyticsRow
+                    key={`${location.city}-${location.country}`}
+                    count={location.count}
+                  >
                     <div>
                       <p className="font-medium">{location.city}</p>
                       <p className="text-xs text-muted-foreground">

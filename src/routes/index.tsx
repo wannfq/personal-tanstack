@@ -6,6 +6,14 @@ import { ExternalLink } from '@/components/external-link'
 import { Container, PageHeading, Section } from '@/components/layout'
 import profile512Avif from '@/assets/profile/profile-512.avif?url'
 import profile256Jpg from '@/assets/profile/profile-256.jpg?url'
+import {
+  homeDescription,
+  homeTitle,
+  homeUrl,
+  ogImageUrl,
+  personJsonLd,
+  profileUrls,
+} from '@/lib/seo'
 
 export const Route = createFileRoute('/')({
   component: HomePage,
@@ -20,6 +28,29 @@ export const Route = createFileRoute('/')({
         imagesizes: '144px',
         fetchpriority: 'high',
       },
+      { rel: 'canonical', href: homeUrl },
+    ],
+    meta: [
+      { title: homeTitle },
+      { name: 'description', content: homeDescription },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: homeUrl },
+      { property: 'og:title', content: homeTitle },
+      { property: 'og:description', content: homeDescription },
+      { property: 'og:image', content: ogImageUrl },
+      {
+        property: 'og:image:alt',
+        content: 'Wan Afiq — Platform & Backend Software Engineer',
+      },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: homeTitle },
+      { name: 'twitter:description', content: homeDescription },
+      { name: 'twitter:image', content: ogImageUrl },
+      {
+        name: 'twitter:image:alt',
+        content: 'Wan Afiq — Platform & Backend Software Engineer',
+      },
+      { 'script:ld+json': personJsonLd },
     ],
   }),
 })
@@ -92,15 +123,15 @@ const experiences = [
 const contactLinks = [
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/wannfq',
+    href: profileUrls.linkedin,
   },
   {
     label: 'GitHub',
-    href: 'https://github.com/wannfq',
+    href: profileUrls.github,
   },
   {
     label: 'X',
-    href: 'https://x.com/thewanafiq',
+    href: profileUrls.x,
   },
 ]
 
@@ -200,7 +231,10 @@ function AboutSection() {
             <li>
               — Experimenting with Linux distros and customizing my development
               environment. Check out my{' '}
-              <ExternalLink href="https://github.com/wannfq/dotfiles" offset={2}>
+              <ExternalLink
+                href="https://github.com/wannfq/dotfiles"
+                offset={2}
+              >
                 dotfiles
               </ExternalLink>
               .
@@ -215,7 +249,10 @@ function AboutSection() {
       <p className="text-sm italic text-muted-foreground">
         This site is built with TanStack Start and React. You can view the
         source on{' '}
-        <ExternalLink href="https://github.com/wannfq/personal-tanstack" offset={2}>
+        <ExternalLink
+          href="https://github.com/wannfq/personal-tanstack"
+          offset={2}
+        >
           GitHub
         </ExternalLink>
         .
